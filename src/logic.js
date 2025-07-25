@@ -14,59 +14,106 @@ function createTodo({title, description, dueDate, priority, status}) {
 }
 
 function createProject(name) {
-    const id = Crypto.randomUUID();
+    const todoList = [];
 
     return {
-        id,
-        name
+        name,
+        todoList
     }
 }
 
-// Pass in project and todo object
-function addNewTodo(projectName, todoDataObj) {
-    const todo = createTodo(todoDataObj);
-    saveTodo(todo, projectName);
-}
-
-function saveTodo(todoItem, projectName) {
-    let jsonProject = localStorage.getItem(projectName);
-
-    // Check if project exists in localStorage
-    if (!jsonProject) {
+function initProjects() {
+    if (projectsArrayExists()) {
         return;
     }
 
-    const arrProject = JSON.parse(jsonProject);
-    arrProject.push(todoItem);
-    jsonProject = JSON.stringify(arrProject);
-    localStorage.setItem(projectName, jsonProject);
+    const projects = [];
+    const defaultProject = createProject("Common");
+    projects.push(defaultProject);
+
+    saveProjectsArray(projects);
+}
+
+function projectsArrayExists() {
+    return localStorage.getItem("projects") !== null;
+}
+
+function addNewTodo(projectName, todoDataObj) {
+    const todoItem = createTodo(todoDataObj);
+    saveTodo(todoItem, projectName);
+}
+
+function saveTodo(todoItem, projectName) {
+    const projects = retrieveProjectsArray();
+    const projectIndex = projects.findIndex((project) => {
+        return project.name === projectName;
+    });
+
+    projects.at(projectIndex).todoList.push(todoItem);
+
+    saveProjectsArray(projects);
 }
 
 function addNewProject(projectName) {
-    const project = createProject(projectName);
-    if (!saveProject(project)) {
-        return false; 
-        // Handle project not saving, UI warning to user, name already exists
+    if (projectNameExists(projectName)) {
+        return false;
+        // Handle project not saving, due to name exists, ui msg to user
     }
 
+    const project = createProject(projectName);
+    saveProject(project);
+
     return true;
+}
+
+function projectNameExists(projectName) {
+    const arrProjects = retrieveProjectsArray();
+
+    return arrProjects.some((project) => {
+        return project.name === projectName;
+    });
 }
 
 function saveProject(project) {
-    if (projectExists(project.name)) {
-        return false;   
-    }
+    const projects = retrieveProjectsArray();
 
-    const jsonProject = JSON.stringify([]);
-    localStorage.setItem(project.name, jsonProject);
-    return true;
+    projects.push(project);
+    
+    const jsonProjects = JSON.stringify(projectsArray);
+    localStorage.setItem("projects", jsonProjects)
 }
-
-function projectExists(projectName) {
-    return localStorage.getItem(projectName) !== null;
-}
-
 // Read todo and project
 // Update todo attributes using id
 // Update project name using name
 // Delete todo and project
+
+function getTodoList(projectName) {
+    const projects = retrieveProjectsArray();
+    return projects.find((project) => {
+        return project.name = projectName;
+    });
+}
+
+function getProjectNames() {
+    const projects = retrieveProjectsArray();
+    const projectNames = [];
+    for (let project in projects) {
+        projectNames.push(project.name);
+    }
+
+    return projectNames;
+}
+
+
+// Helper functions
+function retrieveProjectsArray() {
+    const jsonProjects = localStorage.getItem("projects");
+    return JSON.parse(jsonProjects);
+}
+
+function saveProjectsArray(projectsArray) {
+    const jsonProjects = JSON.stringify(projectsArray);
+    localStorage.setItem("projects", jsonProjects);
+}
+
+export { initProjects, addNewTodo, addNewProject }
