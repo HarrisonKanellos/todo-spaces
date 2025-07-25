@@ -15,13 +15,7 @@ function createTodo({title, description, dueDate, priority, status}) {
 }
 
 function createProject(name) {
-    const getName = () => name;
-    const setName = (newName) => name = newName;
-
-    return {
-        getName,
-        setName,
-    }
+    return { name }
 }
 
 // Pass in project and todo object
