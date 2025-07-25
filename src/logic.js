@@ -37,3 +37,32 @@ function saveTodo(todoItem, projectName) {
     jsonProject = JSON.stringify(arrProject);
     localStorage.setItem(projectName, jsonProject);
 }
+
+function addNewProject(projectName) {
+    const project = createProject(projectName);
+    if (!saveProject(project)) {
+        return false; 
+        // Handle project not saving, UI warning to user, name already exists
+    }
+
+    return true;
+}
+
+function saveProject(project) {
+    if (projectExists(project.name)) {
+        return false;   
+    }
+
+    const jsonProject = JSON.stringify([]);
+    localStorage.setItem(project.name, jsonProject);
+    return true;
+}
+
+function projectExists(projectName) {
+    return localStorage.getItem(projectName) !== null;
+}
+
+// Read todo and project
+// Update todo attributes using id
+// Update project name using name
+// Delete todo and project
