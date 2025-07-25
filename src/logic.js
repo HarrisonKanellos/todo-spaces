@@ -1,36 +1,16 @@
 
 
-function createTodo(title, description, dueDate, priority, status) {
+function createTodo({title, description, dueDate, priority, status}) {
     const id = Crypto.randomUUID();
     const getID = () => id;
 
-    const getTitle = () => title;
-    const setTitle = (newTitle) => title = newTitle;
-
-    const getDescription = () => description;
-    const setDescription = (newDescription) => description = newDescription;
-
-    const getDueDate = () => dueDate;
-    const setDueDate = (newDueDate) => dueDate = newDueDate;
-
-    const getPriority = () => priority;
-    const setPriority = (newPriority) => priority = newPriority;
-
-    const getStatus = () => status;
-    const setStatus = (newStatus) => status = newStatus;
-
     return {
         getID,
-        getTitle,
-        setTitle,
-        getDescription,
-        setDescription,
-        getDueDate,
-        setDueDate,
-        getPriority,
-        setPriority,
-        getStatus,
-        setStatus,
+        title,
+        description,
+        dueDate,
+        priority,
+        status
     }
 }
 
@@ -42,4 +22,24 @@ function createProject(name) {
         getName,
         setName,
     }
+}
+
+// Pass in project and todo object
+function addNewTodo(projectName, todoDataObj) {
+    const todo = createTodo(todoDataObj);
+    saveTodo(todo, projectName);
+}
+
+function saveTodo(todoItem, projectName) {
+    let jsonProject = localStorage.getItem(projectName);
+
+    // Check if project exists in localStorage
+    if (!jsonProject) {
+        return;
+    }
+
+    const arrProject = JSON.parse(jsonProject);
+    arrProject.push(todoItem);
+    jsonProject = JSON.stringify(arrProject);
+    localStorage.setItem(projectName, jsonProject);
 }
