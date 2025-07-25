@@ -2,10 +2,9 @@
 
 function createTodo({title, description, dueDate, priority, status}) {
     const id = Crypto.randomUUID();
-    const getID = () => id;
 
     return {
-        getID,
+        id,
         title,
         description,
         dueDate,
@@ -15,7 +14,12 @@ function createTodo({title, description, dueDate, priority, status}) {
 }
 
 function createProject(name) {
-    return { name }
+    const id = Crypto.randomUUID();
+
+    return {
+        id,
+        name
+    }
 }
 
 // Pass in project and todo object
