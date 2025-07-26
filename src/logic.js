@@ -82,10 +82,6 @@ function saveProject(project) {
     const jsonProjects = JSON.stringify(projectsArray);
     localStorage.setItem("projects", jsonProjects)
 }
-// Read todo and project
-// Update todo attributes using id
-// Update project name using name
-// Delete todo and project
 
 function getTodoList(projectName) {
     const projects = retrieveProjectsArray();
@@ -104,6 +100,33 @@ function getProjectNames() {
     return projectNames;
 }
 
+function deleteTodo(projectName, todoID) {
+    const projectsArr = retrieveProjectsArray();
+
+    const newProject = projectsArr
+        .find((project) => project.name === projectName)
+        .filter((todoItem) => todoItem.id !== todoID);
+
+    const newProjectsArr = projects.map((project) => {
+        if (project.name = projectName) {
+            return newProject;
+        }
+    })
+
+    saveProjectsArray(newProjectsArr);
+}
+
+function deleteProject(projectName) {
+    const projectsArr = retrieveProjectsArray();
+
+    const newProjectsArr = projectsArr.filter((project) => {
+        return project.name !== projectName});
+
+    saveProjectsArray(newProjectsArr);
+}
+
+// Update todo attributes using id
+// Update project name using name
 
 // Helper functions
 function retrieveProjectsArray() {
@@ -116,4 +139,4 @@ function saveProjectsArray(projectsArray) {
     localStorage.setItem("projects", jsonProjects);
 }
 
-export { initProjects, addNewTodo, addNewProject }
+export { initProjects, addNewTodo, addNewProject, getTodoList, getProjectNames, deleteTodo, deleteProject }
