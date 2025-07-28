@@ -20,6 +20,7 @@ function createProject(name) {
     }
 }
 
+// Use on page load event
 function initProjects() {
     if (projectsArrayExists()) {
         return;
@@ -83,7 +84,7 @@ function saveProject(project) {
 
 function getTodoList(projectName) {
     const projects = retrieveProjectsArray();
-    
+
     return projects
         .find((project) => project.name = projectName)
         .todoList;
@@ -110,7 +111,7 @@ function deleteTodo(projectName, todoID) {
         if (project.name = projectName) {
             return newProject;
         }
-    })
+    });
 
     saveProjectsArray(newProjectsArr);
 }
@@ -135,7 +136,7 @@ function updateTodo(projectName, todoID, todoDataObj) {
 function getTodoRef(projectsArr, projectName, todoID) {
     return projectsArr
         .find((project) => project.name === projectName)
-        .todoList.find((todoItem) => todoItem.id === todoID)
+        .todoList.find((todoItem) => todoItem.id === todoID);
 }
 
 function updateTodoProps(todoRef, todoDataObj) {
