@@ -83,9 +83,10 @@ function saveProject(project) {
 
 function getTodoList(projectName) {
     const projects = retrieveProjectsArray();
-    return projects.find((project) => {
-        return project.name = projectName;
-    });
+    
+    return projects
+        .find((project) => project.name = projectName)
+        .todoList;
 }
 
 function getProjectNames() {
