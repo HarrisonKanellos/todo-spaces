@@ -1,5 +1,3 @@
-
-
 function createTodo({title, description, dueDate, priority, status}) {
     const id = Crypto.randomUUID();
 
