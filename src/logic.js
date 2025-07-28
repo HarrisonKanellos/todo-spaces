@@ -127,23 +127,33 @@ function deleteProject(projectName) {
 
 function updateTodo(projectName, todoID, todoDataObj) {
     const projectsArr = retrieveProjectsArray();
-    const currentTodoRef = getTodoRef(projectsArr, projectName, todoID);
-    updateTodoProps(currentTodoRef, todoDataObj);
+    const todoRef = getTodoRef(projectsArr, projectName, todoID);
+    updateTodoProps(todoRef, todoDataObj);
+
     saveProjectsArray(projectsArr);
 }
 
-function getTodoRef(projectsArr, projectName, todoID) {    
+function getTodoRef(projectsArr, projectName, todoID) {
     return projectsArr
         .find((project) => project.name === projectName)
         .todoList.find((todoItem) => todoItem.id === todoID)
 }
 
-function updateTodoProps(currentTodoRef, todoDataObj) {
-    for (let prop in currentTodoRef) {
+function updateTodoProps(todoRef, todoDataObj) {
+    for (let prop in todoRef) {
         if (prop in todoDataObj) {
-            currentTodoRef[prop] = todoDataObj[prop];
+            todoRef[prop] = todoDataObj[prop];
         }
     }
+}
+
+function updateProjectName(projectName, newName) {
+    const projectsArr = retrieveProjectsArray();
+    const projectRef = projectsArr.find((project) => project.name === projectName);
+    
+    projectRef.name = newName;
+    
+    saveProjectsArray(projectsArr);
 }
 
 // Helper functions
@@ -157,4 +167,4 @@ function saveProjectsArray(projectsArray) {
     localStorage.setItem("projects", jsonProjects);
 }
 
-export { initProjects, addNewTodo, addNewProject, getTodoList, getProjectNames, deleteTodo, deleteProject, updateTodo }
+export { initProjects, addNewTodo, addNewProject, getTodoList, getProjectNames, deleteTodo, deleteProject, updateTodo, updateProjectName }
