@@ -12,14 +12,14 @@
             
             <div class="your-spaces-container">
                 <h2>Your Spaces</h2>
-                <img id="add-space-icon" src="" alt="add-icon" />
+                <img id="add-space-icon" src="" alt="add icon" />
             </div>
 
             <nav>
                 <div id="common-tab" class="space-tab">
                     <p class="space-text">Common</p>
                 </div>
-                
+
                 <div class="bottom-nav-container">
                     <div id="completed-tab" class="space-tab">
                         <p class="space-text">Completed</p>
@@ -31,7 +31,7 @@
         <main>
             <header class="space-header">
                 <h2 class="space-heading">Common</h2>
-                <p class="task-count">0 tasks</p>
+                <p class="todo-count">0 todos</p>
             </header>
 
             <div class="space-container">
@@ -41,5 +41,90 @@
                 </div>
             </div>
         </main>
+
+        <dialog class="modal-add-space" closedby="any">
+            <div class="modal-top-container">
+                <h2 class="modal-heading">Add New Space</h2>
+                <button class="close-modal" type="button">
+                    <img class="close-icon" />
+                </button>
+            </div>
+
+            <form id="add-space-form" method="dialog">
+                <input type="text" id="space-name" name="space-name" placeholder="Space name" />
+                <div class="modal-button-container">
+                    <button class="modal-cancel" type="button">Cancel</button>
+                    <button class="modal-submit" type="submit" id="add-space">Add Space</button>
+                </div>
+            </form>
+        </dialog>
+
+        <dialog class="modal-add-todo" closedby="any">
+            <div class="modal-top-container">
+                <h2 class="modal-heading">Add New Todo</h2>
+                <button class="close-modal" type="button">
+                    <img class="close-icon" />
+                </button>
+            </div>
+
+            <form id="add-todo-form" method="dialog">
+                <label for="todo-title">Title</label>
+                <input type="text" name="title" id="todo-title" placeholder="Enter todo title"/>
+                <label for="todo-description">Description</label>
+                <textarea name="description" id="todo-description" placeholder="Enter todo description" rows="15" cols="4"></textarea>
+                <label for="todo-due-date">Due Date</label>
+                <input type="date" name="due-date" id="todo-due-date" value="" />
+                <label for="todo-priority">Priority</label>
+                <select name="priority" id="todo-priority">
+                    <option value="high">High</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <label for="todo-status">Status</label>
+                <select name="satus" id="todo-status">
+                    <option value="pending" selected>Pending</option>
+                    <option value="complete">Complete</option>
+                </select>
+            </form>
+            
+            <div class="modal-button-container">
+                <button class="modal-cancel" type="button">Cancel</button>
+                <button class="modal-submit" type="submit" id="add-todo">Add Todo</button>
+            </div>
+        </dialog>
+
+        <dialog id="modal-todo-item" closedby="any">
+            <div class="modal-top-container">
+                <h2 class="modal-heading">Todo Item</h2>
+                <button class="close-modal" type="button">
+                    <img class="close-icon" />
+                </button>
+            </div>
+
+            <form id="edit-todo-form" method="dialog">
+                <label for="todo-title">Title</label>
+                <input type="text" name="title" id="todo-title" placeholder="Enter todo title"/>
+                <label for="todo-description">Description</label>
+                <textarea name="description" id="todo-description" placeholder="Enter todo description" rows="15" cols="4"></textarea>
+                <label for="todo-due-date">Due Date</label>
+                <input type="date" name="due-date" id="todo-due-date" value="" />
+                <label for="todo-priority">Priority</label>
+                <select name="priority" id="todo-priority">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <label for="todo-status">Status</label>
+                <select name="satus" id="todo-status">
+                    <option value="pending">Pending</option>
+                    <option value="complete">Complete</option>
+                </select>
+            </form>
+
+            <div class="modal-button-container">
+                <button class="modal-cancel" type="button">Cancel</button>
+                <button class="modal-submit" type="submit" id="save-changes">Save Changes</button>
+            </div>
+        </dialog>
     </body>
 </html>
