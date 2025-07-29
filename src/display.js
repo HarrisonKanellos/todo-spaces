@@ -15,3 +15,31 @@ function clearSpaceList() {
         space.removeChild(children[i]);
     }
 }
+
+function renderTodoCount(todoCount) {
+    const counterElem = document.querySelector(".todo-count");
+    counterElem.textContent = `${todoCount} todos`;
+}
+
+function renderSpaceTabs(createdNamesArr) {
+    const nav = document.querySelector("nav");
+    const refNode = document.querySelector("#completed-tab");
+
+    for (let i = 0, len = createdNamesArr.length; i < len; i++) {
+        const tab = createSpaceTab(createdNamesArr[i]);
+        nav.insertBefore(tab, refNode);
+    }
+}
+
+function createSpaceTab(spaceName) {
+    const tab = document.createElement("div");
+    tab.classList.add("space-tab");
+
+    const spaceText = document.createElement("p");
+    spaceText.classList .add("space-text");
+    spaceText.textContent = `${spaceName}`;
+    
+    tab.appendChild(spaceText);
+
+    return tab;
+}
