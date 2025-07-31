@@ -93,3 +93,9 @@ function createTodoItem(todoObj) {
 
     return todoContainer;
 }
+
+function updateSpaceHeading(spaceName) {
+    const spaceHeadingText = document.querySelector(".space-heading");
+    spaceHeadingText.textContent = `${spaceName}`;
+}
+
