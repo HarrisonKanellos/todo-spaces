@@ -38,8 +38,20 @@ function createSpaceTab(spaceName) {
     const spaceText = document.createElement("p");
     spaceText.classList .add("space-text");
     spaceText.textContent = `${spaceName}`;
+
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("space-delete");
+    deleteButton.type = "button";
+
+    const deleteIcon = document.createElement("img");
+    deleteIcon.classList.add("space-delete-icon");
+    deleteIcon.src = "";
+    deleteIcon.alt = "delete";
+
+    deleteButton.appendChild(deleteIcon);
     
     tab.appendChild(spaceText);
+    tab.appendChild(deleteButton);
 
     return tab;
 }
