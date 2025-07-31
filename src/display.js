@@ -43,3 +43,53 @@ function createSpaceTab(spaceName) {
 
     return tab;
 }
+
+function renderSpaceList(spaceListArr) {
+    const spaceContainer = document.querySelector(".space-container");
+    const refNode = document.querySelector("#add-new-todo");
+
+    spaceListArr.forEach((todoObj) => {
+        const todoItemElement = createTodoItem(todoObj);
+        spaceContainer.insertBefore(todoItemElement, refNode);
+    })
+}
+
+function createTodoItem(todoObj) {
+    const todoContainer = document.createElement("div");
+    todoContainer.classList.add("space-list-item");
+    todoContainer.dataset.id = todoObj.id;
+
+    const titleText = document.createElement("h3");
+    titleText.classList.add("list-item-title");
+    titleText.textContent = `${todoObj.title}`;
+
+    const descriptionText = document.createElement("p");
+    descriptionText.classList.add("list-item-description");
+    descriptionText.textContent = `${todoObj.description}`;
+
+    const checkboxStatus = document.createElement("input");
+    checkboxStatus.classList.add("list-item-checkbox");
+    checkboxStatus.type = "checkbox";
+    checkboxStatus.value = `${todoObj.status}`;
+
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("list-item-delete");
+    deleteButton.type = "button";
+
+    const leftContainer = document.createElement("div");
+    leftContainer.classList.add("list-item-left");
+    
+    const rightContainer = document.createElement("div");
+    rightContainer.classList.add("list-item-right");
+
+    leftContainer.appendChild(titleText);
+    leftContainer.appendChild(descriptionText);
+
+    rightContainer.appendChild(checkboxStatus);
+    rightContainer.appendChild(deleteButton);
+
+    todoContainer.appendChild(leftContainer);
+    todoContainer.appendChild(rightContainer);
+
+    return todoContainer;
+}
