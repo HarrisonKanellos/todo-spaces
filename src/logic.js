@@ -105,7 +105,7 @@ function deleteTodo(projectName, todoID) {
 
     const newProject = projectsArr
         .find((project) => project.name === projectName)
-        todoList.filter((todoItem) => todoItem.id !== todoID);
+        .todoList.filter((todoItem) => todoItem.id !== todoID);
 
     const newProjectsArr = projects.map((project) => {
         if (project.name = projectName) {
@@ -167,4 +167,14 @@ function saveProjectsArray(projectsArray) {
     localStorage.setItem("projects", jsonProjects);
 }
 
-export { initProjects, addNewTodo, addNewProject, getTodoList, getProjectNames, deleteTodo, deleteProject, updateTodo, updateProjectName }
+export { 
+    initProjects, 
+    addNewTodo, 
+    addNewProject, 
+    getTodoList, 
+    getProjectNames, 
+    deleteTodo, 
+    deleteProject, 
+    updateTodo, 
+    updateProjectName 
+};
