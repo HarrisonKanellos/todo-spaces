@@ -37,7 +37,7 @@ function createSpaceTab(spaceName) {
 
     const spaceText = document.createElement("p");
     spaceText.classList .add("space-text");
-    spaceText.textContent = `${spaceName}`;
+    spaceText.textContent = spaceName;
 
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("space-delete");
@@ -66,6 +66,8 @@ function renderSpaceList(spaceListArr) {
     })
 }
 
+// TODO: add dueDate with date-fns formatting
+//       add priority as colour of flag
 function createTodoItem(todoObj) {
     const todoContainer = document.createElement("div");
     todoContainer.classList.add("space-list-item");
@@ -73,16 +75,16 @@ function createTodoItem(todoObj) {
 
     const titleText = document.createElement("h3");
     titleText.classList.add("list-item-title");
-    titleText.textContent = `${todoObj.title}`;
+    titleText.textContent = todoObj.title;
 
     const descriptionText = document.createElement("p");
     descriptionText.classList.add("list-item-description");
-    descriptionText.textContent = `${todoObj.description}`;
+    descriptionText.textContent = todoObj.description;
 
     const checkboxStatus = document.createElement("input");
     checkboxStatus.classList.add("list-item-checkbox");
     checkboxStatus.type = "checkbox";
-    checkboxStatus.value = `${todoObj.status}`;
+    checkboxStatus.value = todoObj.status;
 
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("list-item-delete");
@@ -111,3 +113,25 @@ function updateSpaceHeading(spaceName) {
     spaceHeadingText.textContent = `${spaceName}`;
 }
 
+function displayModal(modalElement) {
+    modalElement.showModal();
+}
+
+function closeModal(modalElement) {
+    modalElement.close();
+}
+
+function populateTodoItemModal(todoObj) {
+    const title = document.querySelector("#todo-title");
+    const description = document.querySelector("#todo-description");
+    const dueDate = document.querySelector("#todo-due-date");
+    const priority = document.querySelector("#todo-priority");
+    const status = document.querySelector("#todo-status");
+
+    title.value = todoObj.title;
+    description.value = todoObj.description;
+    // TODO: format dueDate use date-fns
+    dueDate.value = todoObj.dueDate; 
+    priority.value = todoObj.priority;
+    status.value = todoObj.status;
+}
