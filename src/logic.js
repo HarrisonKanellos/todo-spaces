@@ -11,7 +11,7 @@ function createTodo({title, description, dueDate, priority, status}) {
     }
 }
 
-function createProject(name) {
+function createSpace(name) {
     const todoList = [];
 
     return {
@@ -21,121 +21,121 @@ function createProject(name) {
 }
 
 // Use on page load event
-function initProjects() {
-    if (projectsArrayExists()) {
+function initSpaces() {
+    if (spacesArrayExists()) {
         return;
     }
 
-    const projects = [];
-    const defaultProject = createProject("Common");
-    projects.push(defaultProject);
+    const spaces = [];
+    const defaultSpace = createSpace("Common");
+    spaces.push(defaultSpace);
 
-    saveProjectsArray(projects);
+    saveSpacesArray(spaces);
 }
 
-function projectsArrayExists() {
-    return localStorage.getItem("projects") !== null;
+function spacesArrayExists() {
+    return localStorage.getItem("spaces") !== null;
 }
 
-function addNewTodo(projectName, todoDataObj) {
+function addNewTodo(spaceName, todoDataObj) {
     const todoItem = createTodo(todoDataObj);
-    saveTodo(todoItem, projectName);
+    saveTodo(todoItem, spaceName);
 }
 
-function saveTodo(todoItem, projectName) {
-    const projects = retrieveProjectsArray();
-    const projectIndex = projects.findIndex((project) => {
-        return project.name === projectName;
+function saveTodo(todoItem, spaceName) {
+    const spaces = retrieveSpacesArray();
+    const spaceIndex = spaces.findIndex((space) => {
+        return space.name === spaceName;
     });
 
-    projects.at(projectIndex).todoList.push(todoItem);
+    spaces.at(spaceIndex).todoList.push(todoItem);
 
-    saveProjectsArray(projects);
+    saveSpacesArray(spaces);
 }
 
-function addNewProject(projectName) {
-    if (projectNameExists(projectName)) {
+function addNewSpace(spaceName) {
+    if (spaceNameExists(spaceName)) {
         return false;
-        // Handle project not saving, due to name exists, ui msg to user
+        // Handle space not saving, due to name exists, ui msg to user
     }
 
-    const project = createProject(projectName);
-    saveProject(project);
+    const space = createSpace(spaceName);
+    saveSpace(space);
 
     return true;
 }
 
-function projectNameExists(projectName) {
-    const arrProjects = retrieveProjectsArray();
+function spaceNameExists(spaceName) {
+    const arrSpaces = retrieveSpacesArray();
 
-    return arrProjects.some((project) => {
-        return project.name === projectName;
+    return arrSpaces.some((space) => {
+        return space.name === spaceName;
     });
 }
 
-function saveProject(project) {
-    const projects = retrieveProjectsArray();
+function saveSpace(space) {
+    const spaces = retrieveSpacesArray();
 
-    projects.push(project);
+    spaces.push(space);
     
-    const jsonProjects = JSON.stringify(projectsArray);
-    localStorage.setItem("projects", jsonProjects)
+    const jsonSpaces = JSON.stringify(spacesArray);
+    localStorage.setItem("spaces", jsonSpaces)
 }
 
-function getTodoList(projectName) {
-    const projects = retrieveProjectsArray();
+function getTodoList(spaceName) {
+    const spaces = retrieveSpacesArray();
 
-    return projects
-        .find((project) => project.name = projectName)
+    return spaces
+        .find((space) => space.name = spaceName)
         .todoList;
 }
 
-function getProjectNames() {
-    const projects = retrieveProjectsArray();
-    const projectNames = [];
-    for (let project in projects) {
-        projectNames.push(project.name);
+function getSpaceNames() {
+    const spaces = retrieveSpacesArray();
+    const spaceNames = [];
+    for (let space in spaces) {
+        spaceNames.push(space.name);
     }
 
-    return projectNames;
+    return spaceNames;
 }
 
-function deleteTodo(projectName, todoID) {
-    const projectsArr = retrieveProjectsArray();
+function deleteTodo(spaceName, todoID) {
+    const spacesArr = retrieveSpacesArray();
 
-    const newProject = projectsArr
-        .find((project) => project.name === projectName)
+    const newSpace = spacesArr
+        .find((space) => space.name === spaceName)
         .todoList.filter((todoItem) => todoItem.id !== todoID);
 
-    const newProjectsArr = projects.map((project) => {
-        if (project.name = projectName) {
-            return newProject;
+    const newSpacesArr = spaces.map((space) => {
+        if (space.name = spaceName) {
+            return newSpace;
         }
     });
 
-    saveProjectsArray(newProjectsArr);
+    saveSpacesArray(newSpacesArr);
 }
 
-function deleteProject(projectName) {
-    const projectsArr = retrieveProjectsArray();
+function deletepace(spaceName) {
+    const spacesArr = retrieveSpacesArray();
 
-    const newProjectsArr = projectsArr.filter((project) => {
-        return project.name !== projectName});
+    const newSpacesArr = spacesArr.filter((space) => {
+        return space.name !== spaceName});
 
-    saveProjectsArray(newProjectsArr);
+    saveSpacesArray(newSpacesArr);
 }
 
-function updateTodo(projectName, todoID, todoDataObj) {
-    const projectsArr = retrieveProjectsArray();
-    const todoRef = getTodoRef(projectsArr, projectName, todoID);
+function updateTodo(spaceName, todoID, todoDataObj) {
+    const spacesArr = retrieveSpacesArray();
+    const todoRef = getTodoRef(spacesArr, spaceName, todoID);
     updateTodoProps(todoRef, todoDataObj);
 
-    saveProjectsArray(projectsArr);
+    saveSpacesArray(spacesArr);
 }
 
-function getTodoRef(projectsArr, projectName, todoID) {
-    return projectsArr
-        .find((project) => project.name === projectName)
+function getTodoRef(spacesArr, spaceName, todoID) {
+    return spacesArr
+        .find((space) => space.name === spaceName)
         .todoList.find((todoItem) => todoItem.id === todoID);
 }
 
@@ -147,34 +147,34 @@ function updateTodoProps(todoRef, todoDataObj) {
     }
 }
 
-function updateProjectName(projectName, newName) {
-    const projectsArr = retrieveProjectsArray();
-    const projectRef = projectsArr.find((project) => project.name === projectName);
+function updateSpaceName(spaceName, newName) {
+    const spacesArr = retrieveSpacesArray();
+    const spaceRef = spacesArr.find((space) => space.name === spaceName);
     
-    projectRef.name = newName;
+    spaceRef.name = newName;
     
-    saveProjectsArray(projectsArr);
+    saveSpacesArray(spacesArr);
 }
 
 // Helper functions
-function retrieveProjectsArray() {
-    const jsonProjects = localStorage.getItem("projects");
-    return JSON.parse(jsonProjects);
+function retrieveSpacesArray() {
+    const jsonSpaces = localStorage.getItem("spaces");
+    return JSON.parse(jsonSpaces);
 }
 
-function saveProjectsArray(projectsArray) {
-    const jsonProjects = JSON.stringify(projectsArray);
-    localStorage.setItem("projects", jsonProjects);
+function saveSpacesArray(spacesArray) {
+    const jsonSpaces = JSON.stringify(spacesArray);
+    localStorage.setItem("spaces", jsonSpaces);
 }
 
 export { 
-    initProjects, 
+    initSpaces, 
     addNewTodo, 
-    addNewProject, 
+    addNewSpace, 
     getTodoList, 
-    getProjectNames, 
+    getSpaceNames, 
     deleteTodo, 
-    deleteProject, 
+    deletepace, 
     updateTodo, 
-    updateProjectName 
+    updateSpaceName 
 };
