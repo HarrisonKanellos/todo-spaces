@@ -1,4 +1,4 @@
-function clearSpaces() {
+function clearUserMadeSpaces() {
     const nav = document.querySelector("nav");
     const tabs = nav.childNodes;
     
@@ -137,7 +137,7 @@ function populateTodoItemModal(todoObj) {
 }
 
 export {
-    clearSpaces,
+    clearUserMadeSpaces,
     clearSpaceList,
     renderTodoCount,
     renderSpaceTabs,
