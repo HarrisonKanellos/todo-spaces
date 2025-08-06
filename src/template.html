@@ -98,7 +98,7 @@
         <dialog id="modal-todo-item" closedby="any">
             <div class="modal-top-container">
                 <h2 class="modal-heading">Todo Item</h2>
-                <button class="modal-delete-todo" type="button">
+                <button class="modal-delete-button" type="button">
                     <img class="delete-icon" src="" alt="delete" />
                 </button>
                 <button class="modal-close" type="button">
@@ -131,7 +131,38 @@
                     <button class="modal-submit" type="submit" id="save-changes">Save Changes</button>
                 </div>
             </form>
+        </dialog>
 
+        <dialog id="modal-delete-todo" closedby="closerequest">
+            <div class="modal-top-container">
+                <h2 class="modal-heading">Delete Todo?</h2>
+                <button class="modal-close" type="button">
+                    <img class="close-icon" src="" alt="close" />
+                </button>
+            </div>
+            <div class="modal-main-container">
+                <p class="confirm-delete-text">This Todo will be permanently deleted.</p>
+            </div>
+            <div class="modal-button-container">
+                <button class="modal-cancel" type="button">Cancel</button>
+                <button class="confirm-delete-button" id="confirm-todo-delete" type="button">Delete</button>
+            </div>
+        </dialog>
+
+        <dialog id="modal-delete-space" closedby="closerequest">
+            <div class="modal-top-container">
+                <h2 class="modal-heading">Delete Space?</h2>
+                <button class="modal-close" type="button">
+                    <img class="close-icon" src="" alt="close" />
+                </button>
+            </div>
+            <div class="modal-main-container">
+                <p class="confirm-delete-text">This space and all it's Todos will be permanently deleted.</p>
+            </div>
+            <div class="modal-button-container">
+                <button class="modal-cancel" type="button">Cancel</button>
+                <button class="confirm-delete-button" id="confirm-space-delete" type="button">Delete</button>
+            </div>
         </dialog>
     </body>
 </html>
