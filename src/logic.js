@@ -56,7 +56,6 @@ function saveTodo(todoItem, spaceName) {
 function addNewSpace(spaceName) {
     if (spaceNameExists(spaceName)) {
         return false;
-        // Handle space not saving, due to name exists, ui msg to user
     }
 
     const space = createSpace(spaceName);
