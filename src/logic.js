@@ -92,10 +92,12 @@ function getTodoList(spaceName) {
         .todoList;
 }
 
-function getSpaceNames() {
+function getUserMadeSpaceNames() {
     const spaces = retrieveSpacesArray();
     const spaceNames = [];
-    for (let space in spaces) {
+    
+    // Skips the first 2, as they are default spaces, not user made
+    for (let i = 2, len = spaces.length; i < len; i++) {
         spaceNames.push(space.name);
     }
 
@@ -174,7 +176,7 @@ export {
     addNewTodo, 
     addNewSpace, 
     getTodoList, 
-    getSpaceNames, 
+    getUserMadeSpaceNames, 
     deleteTodo, 
     deleteSpace, 
     updateTodo, 
