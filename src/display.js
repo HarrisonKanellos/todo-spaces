@@ -135,3 +135,15 @@ function populateTodoItemModal(todoObj) {
     priority.value = todoObj.priority;
     status.value = todoObj.status;
 }
+
+export {
+    clearSpaces,
+    clearSpaceList,
+    renderTodoCount,
+    renderSpaceTabs,
+    renderSpaceList,
+    updateSpaceHeading,
+    displayModal,
+    closeModal,
+    populateTodoItemModal
+};
