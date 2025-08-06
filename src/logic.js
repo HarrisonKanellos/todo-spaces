@@ -28,7 +28,10 @@ function initSpaces() {
 
     const spaces = [];
     const defaultSpace = createSpace("Common");
+    const completedSpace = createSpace("Completed");
+
     spaces.push(defaultSpace);
+    spaces.push(completedSpace);
 
     saveSpacesArray(spaces);
 }
@@ -115,7 +118,7 @@ function deleteTodo(spaceName, todoID) {
     saveSpacesArray(newSpacesArr);
 }
 
-function deletepace(spaceName) {
+function deleteSpace(spaceName) {
     const spacesArr = retrieveSpacesArray();
 
     const newSpacesArr = spacesArr.filter((space) => {
@@ -173,7 +176,7 @@ export {
     getTodoList, 
     getSpaceNames, 
     deleteTodo, 
-    deletepace, 
+    deleteSpace, 
     updateTodo, 
     updateSpaceName 
 };
