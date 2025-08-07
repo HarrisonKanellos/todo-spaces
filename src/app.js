@@ -5,9 +5,13 @@ import * as Display from "./display.js";
 function initEventListeners() {
     const addSpaceButton = document.querySelector("#add-space-button");
     const submitAddSpaceButton = document.querySelector("#add-space");
+    const addTodoButton = document.querySelector("#add-todo-icon");
+    const submitAddTodoButton = document.querySelector("#add-todo");
 
     addSpaceButton.addEventListener("click", handleOpenAddSpaceModal);
     submitAddSpaceButton.addEventListener("click", handleSubmitAddSpace);
+    addTodoButton.addEventListener("click", handleOpenAddTodoModal);
+    submitAddTodoButton.addEventListener("click", handleSubmitAddTodo);
 }
 
 function handleOpenAddSpaceModal() {
@@ -29,4 +33,29 @@ function handleSubmitAddSpace() {
     Display.closeModal(addSpaceModal);
     Display.clearUserMadeSpaces();
     Display.renderSpaceTabs(Logic.getUserMadeSpaceNames());
+}
+
+function handleOpenAddTodoModal() {
+    const addTodoModal = document.querySelector(".modal-add-todo");
+    Display.displayModal(addTodoModal);
+}
+
+function handleSubmitAddTodo() {
+    const addTodoModal = document.querySelector(".modal-add-todo");
+    const spaceName = document.querySelector(".space-heading").textContent;
+    const title = document.querySelector("#title-input").value;
+    const description = document.querySelector("#description-input").value;
+    const dueDate = document.querySelector("#due-date-input").value;
+    const priority = document.querySelector("#priority-input").value;
+    const status = document.querySelector("#status-input").value;
+
+    const todoDataObj = { title, description, dueDate, priority, status };
+    Logic.addNewTodo(spaceName, todoDataObj);
+
+    Display.closeModal(addTodoModal);
+
+    const todoListArr = Logic.getTodoList(spaceName);
+    Display.clearSpaceList();
+    Display.renderSpaceList(todoListArr);
+    Display.renderTodoCount(todoListArr.length);
 }
