@@ -8,12 +8,14 @@ function initEventListeners() {
     const addTodoButton = document.querySelector("#add-todo-icon");
     const submitAddTodoButton = document.querySelector("#add-todo");
     const spaceContainer = document.querySelector(".space-container");
+    const todoSaveChangesButton = document.querySelector("#save-changes");
 
     addSpaceButton.addEventListener("click", handleOpenAddSpaceModal);
     submitAddSpaceButton.addEventListener("click", handleSubmitAddSpace);
     addTodoButton.addEventListener("click", handleOpenAddTodoModal);
     submitAddTodoButton.addEventListener("click", handleSubmitAddTodo);
     spaceContainer.addEventListener("click", handleTodoItemClick);
+    todoSaveChangesButton.addEventListener("click", handleTodoSaveChanges);
 }
 
 function handleOpenAddSpaceModal() {
@@ -22,10 +24,10 @@ function handleOpenAddSpaceModal() {
 }
 
 function handleSubmitAddSpace(event) {
+    event.preventDefault();
+
     const addSpaceModal = document.querySelector(".modal-add-space");
     const spaceNameInput = document.querySelector("#space-name");
-
-    event.preventDefault();
 
     spaceName = spaceNameInput.value;
     if (!addNewSpace(spaceName)) {
@@ -45,16 +47,16 @@ function handleOpenAddTodoModal() {
 }
 
 function handleSubmitAddTodo(event) {
+    event.preventDefault();
+
     const addTodoModal = document.querySelector(".modal-add-todo");
-    const spaceName = document.querySelector(".space-heading").textContent;
     const title = document.querySelector("#title-input").value;
     const description = document.querySelector("#description-input").value;
     const dueDate = document.querySelector("#due-date-input").value;
     const priority = document.querySelector("#priority-input").value;
     const status = document.querySelector("#status-input").value;
-
-    event.preventDefault();
-
+    
+    const spaceName = document.querySelector(".space-heading").textContent;
     const todoDataObj = { title, description, dueDate, priority, status };
     Logic.addNewTodo(spaceName, todoDataObj);
 
@@ -75,8 +77,30 @@ function handleTodoItemClick(event) {
     const spaceName = document.querySelector(".space-heading").textContent;
     const todoID = todoItem.dataset.id;
     const todoObj = Logic.getTodoObjFromID(spaceName, todoID);
+    Display.populateTodoItemModal(todoID, todoObj);
 
     const todoItemModal = document.querySelector("#modal-todo-item");
-    Display.populateTodoItemModal(todoObj);
     Display.displayModal(todoItemModal);
+}
+
+function handleTodoSaveChanges(event) {
+    event.preventDefault();
+
+    const todoItemModal = document.querySelector("#modal-todo-item");
+    const title = document.querySelector("#todo-title").value;
+    const description = document.querySelector("#todo-description").value;
+    const dueDate = document.querySelector("#todo-due-date").value;
+    const priority = document.querySelector("#todo-priority").value;
+    const status = document.querySelector("#todo-status").value;
+    
+    const spaceName = document.querySelector(".space-heading").textContent;
+    const todoID = todoItemModal.dataset.id;
+    const todoDataObj = { title, description, dueDate, priority, status };
+
+    Logic.updateTodo(spaceName, todoID, todoDataObj);
+    Display.closeModal(todoItemModal);
+
+    const todoListArr = Logic.getTodoList(spaceName);
+    Display.clearSpaceList();
+    Display.renderSpaceList(todoListArr);
 }

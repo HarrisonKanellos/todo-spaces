@@ -122,13 +122,15 @@ function closeModal(modalElement) {
     modalElement.close();
 }
 
-function populateTodoItemModal(todoObj) {
+function populateTodoItemModal(todoID, todoObj) {
+    const todoItemModal = document.querySelector("#modal-todo-item");
     const title = document.querySelector("#todo-title");
     const description = document.querySelector("#todo-description");
     const dueDate = document.querySelector("#todo-due-date");
     const priority = document.querySelector("#todo-priority");
     const status = document.querySelector("#todo-status");
 
+    todoItemModal.dataset.id = todoID;
     title.value = todoObj.title;
     description.value = todoObj.description;
     // TODO: format dueDate use date-fns
