@@ -7,11 +7,13 @@ function initEventListeners() {
     const submitAddSpaceButton = document.querySelector("#add-space");
     const addTodoButton = document.querySelector("#add-todo-icon");
     const submitAddTodoButton = document.querySelector("#add-todo");
+    const spaceContainer = document.querySelector(".space-container");
 
     addSpaceButton.addEventListener("click", handleOpenAddSpaceModal);
     submitAddSpaceButton.addEventListener("click", handleSubmitAddSpace);
     addTodoButton.addEventListener("click", handleOpenAddTodoModal);
     submitAddTodoButton.addEventListener("click", handleSubmitAddTodo);
+    spaceContainer.addEventListener("click", handleTodoItemClick);
 }
 
 function handleOpenAddSpaceModal() {
@@ -62,4 +64,19 @@ function handleSubmitAddTodo(event) {
     Display.clearSpaceList();
     Display.renderSpaceList(todoListArr);
     Display.renderTodoCount(todoListArr.length);
+}
+
+function handleTodoItemClick(event) {
+    const todoItem = event.target.closest(".space-list-todo");
+    if (!todoItem) {
+        return;
+    }
+
+    const spaceName = document.querySelector(".space-heading").textContent;
+    const todoID = todoItem.dataset.id;
+    const todoObj = Logic.getTodoObjFromID(spaceName, todoID);
+
+    const todoItemModal = document.querySelector("#modal-todo-item");
+    Display.populateTodoItemModal(todoObj);
+    Display.displayModal(todoItemModal);
 }

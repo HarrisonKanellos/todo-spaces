@@ -71,6 +71,7 @@ function renderSpaceList(spaceListArr) {
 function createTodoItem(todoObj) {
     const todoContainer = document.createElement("div");
     todoContainer.classList.add("space-list-item");
+    todoContainer.classList.add("space-list-todo");
     todoContainer.dataset.id = todoObj.id;
 
     const titleText = document.createElement("h3");

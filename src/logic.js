@@ -84,11 +84,19 @@ function saveSpace(space) {
     localStorage.setItem("spaces", jsonSpaces)
 }
 
+function getTodoObjFromID(spaceName, id) {
+    const spaces = retrieveSpacesArray();
+
+    return spaces
+        .find((space) => space.name === spaceName)
+        .todoList.find((todoObj) => todoObj.id === id);
+}
+
 function getTodoList(spaceName) {
     const spaces = retrieveSpacesArray();
 
     return spaces
-        .find((space) => space.name = spaceName)
+        .find((space) => space.name === spaceName)
         .todoList;
 }
 
@@ -174,7 +182,8 @@ function saveSpacesArray(spacesArray) {
 export { 
     initSpaces, 
     addNewTodo, 
-    addNewSpace, 
+    addNewSpace,
+    getTodoObjFromID,
     getTodoList, 
     getUserMadeSpaceNames, 
     deleteTodo, 
