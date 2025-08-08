@@ -63,7 +63,7 @@ function renderSpaceList(spaceListArr) {
     spaceListArr.forEach((todoObj) => {
         const todoItemElement = createTodoItem(todoObj);
         spaceContainer.insertBefore(todoItemElement, refNode);
-    })
+    });
 }
 
 // TODO: add dueDate with date-fns formatting

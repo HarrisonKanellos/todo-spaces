@@ -19,9 +19,11 @@ function handleOpenAddSpaceModal() {
     Display.displayModal(addSpaceModal);
 }
 
-function handleSubmitAddSpace() {
+function handleSubmitAddSpace(event) {
     const addSpaceModal = document.querySelector(".modal-add-space");
     const spaceNameInput = document.querySelector("#space-name");
+
+    event.preventDefault();
 
     spaceName = spaceNameInput.value;
     if (!addNewSpace(spaceName)) {
@@ -40,7 +42,7 @@ function handleOpenAddTodoModal() {
     Display.displayModal(addTodoModal);
 }
 
-function handleSubmitAddTodo() {
+function handleSubmitAddTodo(event) {
     const addTodoModal = document.querySelector(".modal-add-todo");
     const spaceName = document.querySelector(".space-heading").textContent;
     const title = document.querySelector("#title-input").value;
@@ -48,6 +50,8 @@ function handleSubmitAddTodo() {
     const dueDate = document.querySelector("#due-date-input").value;
     const priority = document.querySelector("#priority-input").value;
     const status = document.querySelector("#status-input").value;
+
+    event.preventDefault();
 
     const todoDataObj = { title, description, dueDate, priority, status };
     Logic.addNewTodo(spaceName, todoDataObj);
