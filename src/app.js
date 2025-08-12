@@ -14,7 +14,9 @@ function initEventListeners() {
     submitAddSpaceButton.addEventListener("click", handleSubmitAddSpace);
     addTodoButton.addEventListener("click", handleOpenAddTodoModal);
     submitAddTodoButton.addEventListener("click", handleSubmitAddTodo);
-    spaceContainer.addEventListener("click", handleTodoItemClick);
+    // TODO: change below handler to handleSpaceContainerClick and delegate
+    // with other related handlers for item click, delete, checking status etc.
+    spaceContainer.addEventListener("click", handleSpaceContainerClick);
     todoSaveChangesButton.addEventListener("click", handleTodoSaveChanges);
 }
 
@@ -68,12 +70,26 @@ function handleSubmitAddTodo(event) {
     Display.renderTodoCount(todoListArr.length);
 }
 
-function handleTodoItemClick(event) {
-    const todoItem = event.target.closest(".space-list-todo");
-    if (!todoItem) {
+function handleSpaceContainerClick(event) {
+    const statusCheckbox = event.target.closest(".list-item-checkbox");
+    if (statusCheckbox) {
+        // handleStatusComplete
         return;
     }
 
+    const deleteButton = event.target.closest(".list-item-delete");
+    if (deleteButton) {
+        // handleDeleteTodo
+        return;
+    }
+
+    const todoItem = event.target.closest(".space-list-todo");
+    if (todoItem) {
+        handleTodoItemClick(todoItem);
+    }
+}
+
+function handleTodoItemClick(todoItem) {
     const spaceName = document.querySelector(".space-heading").textContent;
     const todoID = todoItem.dataset.id;
     const todoObj = Logic.getTodoObjFromID(spaceName, todoID);
