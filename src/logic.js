@@ -160,12 +160,17 @@ function updateTodoProps(todoRef, todoDataObj) {
 }
 
 function updateSpaceName(spaceName, newName) {
+    if (spaceNameExists(newName)) {
+        return false;
+    }
+
     const spacesArr = retrieveSpacesArray();
     const spaceRef = spacesArr.find((space) => space.name === spaceName);
-    
     spaceRef.name = newName;
     
     saveSpacesArray(spacesArr);
+
+    return true;
 }
 
 // Helper functions
