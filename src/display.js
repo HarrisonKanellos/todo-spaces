@@ -48,10 +48,21 @@ function createSpaceTab(spaceName) {
     deleteIcon.src = "";
     deleteIcon.alt = "delete";
 
+    const editButton = document.createElement("button");
+    editButton.classList.add("space-edit");
+    editButton.type = "button";
+
+    const editIcon = document.createElement("img");
+    editIcon.classList.add("space-edit-icon");
+    editIcon.src = "";
+    editIcon.alt = "edit";
+
     deleteButton.appendChild(deleteIcon);
+    editButton.appendChild(editIcon);
     
     tab.appendChild(spaceText);
     tab.appendChild(deleteButton);
+    tab.appendChild(editButton);
 
     return tab;
 }
