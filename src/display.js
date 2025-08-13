@@ -83,6 +83,15 @@ function renderSpaceList(spaceListArr) {
     spaceContainer.appendChild(createAddTodoButton());
 }
 
+function renderCompletedList(completedTodoArr) {
+    const spaceContainer = document.querySelector(".space-container");
+
+    spaceListArr.forEach((todoObj) => {
+        const todoItemElement = createTodoItem(todoObj);
+        spaceContainer.appendChild(todoItemElement);
+    });
+}
+
 // TODO: add dueDate with date-fns formatting
 //       add priority as colour of flag
 function createTodoItem(todoObj) {
@@ -183,6 +192,7 @@ export {
     renderTodoCount,
     renderSpaceTabs,
     renderSpaceList,
+    renderCompletedList,
     updateSpaceHeading,
     displayModal,
     closeModal,

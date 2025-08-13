@@ -30,7 +30,6 @@ function initSpaces() {
     const defaultSpace = createSpace("Common");
 
     spaces.push(defaultSpace);
-    spaces.push(completedSpace);
 
     saveSpacesArray(spaces);
 }
@@ -91,12 +90,27 @@ function getTodoObjFromID(spaceName, id) {
         .todoList.find((todoObj) => todoObj.id === id);
 }
 
-function getTodoList(spaceName) {
+function getPendingTodoList(spaceName) {
     const spaces = retrieveSpacesArray();
 
     return spaces
         .find((space) => space.name === spaceName)
-        .todoList;
+        .todoList.filter((todoItem) => todoItem.status === "pending");
+}
+
+function getCompletedTodoList() {
+    const spaces = retrieveSpacesArray();
+    const completedTodoArr = [];
+
+    spaces.forEach((space) => {
+        space.todoList.forEach((todoItem) => {
+            if (todoItem.status === "complete") {
+                completedTodoArr.push(todoItem);
+            }
+        });
+    });
+
+    return completedTodoArr;
 }
 
 function getUserMadeSpaceNames() {
