@@ -28,9 +28,6 @@ function initSpaces() {
 
     const spaces = [];
     const defaultSpace = createSpace("Common");
-    // TODO: remove completed space, rather treat it as a data view
-    // than it's own space list
-    const completedSpace = createSpace("Completed");
 
     spaces.push(defaultSpace);
     spaces.push(completedSpace);

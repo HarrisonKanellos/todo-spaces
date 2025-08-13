@@ -11,7 +11,7 @@ function clearSpaceList() {
     const space = document.querySelector(".space-container");
     const children = space.childNodes;
 
-    for (let i = 0, len = children.length; i < len - 1; i++) {
+    for (let i = 0, len = children.length; i < len; i++) {
         space.removeChild(children[i]);
     }
 }
@@ -74,12 +74,13 @@ function createSpaceTab(spaceName) {
 
 function renderSpaceList(spaceListArr) {
     const spaceContainer = document.querySelector(".space-container");
-    const refNode = document.querySelector("#add-new-todo");
 
     spaceListArr.forEach((todoObj) => {
         const todoItemElement = createTodoItem(todoObj);
-        spaceContainer.insertBefore(todoItemElement, refNode);
+        spaceContainer.appendChild(todoItemElement);
     });
+
+    spaceContainer.appendChild(createAddTodoButton());
 }
 
 // TODO: add dueDate with date-fns formatting
@@ -123,6 +124,26 @@ function createTodoItem(todoObj) {
     todoContainer.appendChild(rightContainer);
 
     return todoContainer;
+}
+
+function createAddTodoButton() {
+    const addTodoContainer = document.createElement("div");
+    addTodoContainer.classList.add("space-list-item");
+    addTodoContainer.id = "add-new-todo";
+
+    const addIcon = document.createElement("img");
+    addIcon.id = "add-todo-icon";
+    addIcon.src = "";
+    addIcon.alt = "add icon";
+
+    const addTodoText = document.createElement("p");
+    addTodoText.classList.add("add-todo-text");
+    addTodoText.textContent = "Add new todo";
+
+    addTodoContainer.appendChild(addIcon);
+    addTodoContainer.appendChild(addTodoText);
+
+    return addTodoContainer;
 }
 
 function updateSpaceHeading(spaceName) {
