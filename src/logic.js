@@ -117,8 +117,8 @@ function getUserMadeSpaceNames() {
     const spaces = retrieveSpacesArray();
     const spaceNames = [];
     
-    // Skips the first 2, as they are default spaces, not user made
-    for (let i = 2, len = spaces.length; i < len; i++) {
+    // Skips the first space as is the default 'common' space, not user made
+    for (let i = 1, len = spaces.length; i < len; i++) {
         spaceNames.push(space.name);
     }
 
@@ -217,7 +217,8 @@ export {
     addNewTodo, 
     addNewSpace,
     getTodoObjFromID,
-    getTodoList, 
+    getPendingTodoList, 
+    getCompletedTodoList,
     getUserMadeSpaceNames, 
     deleteTodo, 
     deleteSpace, 
