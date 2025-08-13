@@ -8,14 +8,14 @@ function initEventListeners() {
     const addTodoButton = document.querySelector("#add-todo-icon");
     const submitAddTodoButton = document.querySelector("#add-todo");
     const spaceContainer = document.querySelector(".space-container");
-    const todoSaveChangesButton = document.querySelector("#save-changes");
+    const todoItemModal = document.querySelector("#modal-todo-item");
 
     addSpaceButton.addEventListener("click", handleOpenAddSpaceModal);
     submitAddSpaceButton.addEventListener("click", handleSubmitAddSpace);
     addTodoButton.addEventListener("click", handleOpenAddTodoModal);
     submitAddTodoButton.addEventListener("click", handleSubmitAddTodo);
     spaceContainer.addEventListener("click", handleSpaceContainerClick);
-    todoSaveChangesButton.addEventListener("click", handleTodoSaveChanges);
+    todoItemModal.addEventListener("click", handleTodoItemModalClick);
 }
 
 function handleOpenAddSpaceModal() {
@@ -77,7 +77,7 @@ function handleSpaceContainerClick(event) {
 
     const deleteButton = event.target.closest(".list-item-delete");
     if (deleteButton) {
-        handleOpenDeleteTodoModal(event);
+        handleDeleteFromSpaceList(event);
         return;
     }
 
@@ -96,9 +96,9 @@ function handleStatusToggle(event) {
     Display.removeTodoFromSpaceList(todoContainer);
 }
 
-function handleOpenDeleteTodoModal(event) {
+function handleDeleteFromSpaceList(event) {
     const todoDeleteModal = document.querySelector("#modal-delete-todo");
-    const todoID = event.target.closest(".space-list-todo");
+    const todoID = event.target.closest(".space-list-todo").dataset.id;
     todoDeleteModal.dataset.id = todoID;
     
     Display.displayModal(todoDeleteModal);
@@ -112,6 +112,44 @@ function handleTodoItemClick(todoItem) {
 
     const todoItemModal = document.querySelector("#modal-todo-item");
     Display.displayModal(todoItemModal);
+}
+
+function handleTodoItemModalClick(event) {
+    const deleteButton = event.target.closest(".modal-delete-button");
+    if (deleteButton) {
+        handleDeleteFromTodoModal();
+        return;    
+    }
+    
+    const closeButton = event.target.closest(".modal-close");
+    if (closeButton) {
+        handleCloseTodoItemModal();
+        return;
+    }
+
+    const cancelButton = event.target.closest(".modal-cancel");
+    if (cancelButton) {
+        handleCloseTodoItemModal();
+        return;
+    }
+
+    const saveChangesButton = event.target.closest("#save-changes");
+    if (saveChangesButton) {
+        handleTodoSaveChanges(event);
+    }
+}
+
+function handleDeleteFromTodoModal() {
+    const todoDeleteModal = document.querySelector("#modal-delete-todo");
+    const todoID = document.querySelector("#modal-todo-item").dataset.id;
+    todoDeleteModal.dataset.id = todoID;
+
+    Display.displayModal(todoDeleteModal);
+}
+
+function handleCloseTodoItemModal() {
+    const todoItemModal = document.querySelector("#modal-todo-item");
+    Display.closeModal(todoItemModal);
 }
 
 function handleTodoSaveChanges(event) {
