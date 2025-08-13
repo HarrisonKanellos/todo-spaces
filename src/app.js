@@ -73,7 +73,7 @@ function handleSubmitAddTodo(event) {
 function handleSpaceContainerClick(event) {
     const statusCheckbox = event.target.closest(".list-item-checkbox");
     if (statusCheckbox) {
-        // handleStatusComplete
+        handleStatusToggle(event);
         return;
     }
 
@@ -87,6 +87,15 @@ function handleSpaceContainerClick(event) {
     if (todoItem) {
         handleTodoItemClick(todoItem);
     }
+}
+
+function handleStatusToggle(event) {
+    const todoContainer = event.target.closest(".space-list-todo");
+    const todoID = todoContainer.dataset.id;
+    const spaceName = document.querySelector(".space-heading").textContent;
+
+    Logic.toggleTodoStatus(spaceName, todoID);
+    Display.removeTodoFromSpaceList(todoContainer);
 }
 
 function handleTodoItemClick(todoItem) {

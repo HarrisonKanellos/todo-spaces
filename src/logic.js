@@ -28,6 +28,8 @@ function initSpaces() {
 
     const spaces = [];
     const defaultSpace = createSpace("Common");
+    // TODO: remove completed space, rather treat it as a data view
+    // than it's own space list
     const completedSpace = createSpace("Completed");
 
     spaces.push(defaultSpace);
@@ -145,6 +147,21 @@ function updateTodo(spaceName, todoID, todoDataObj) {
     saveSpacesArray(spacesArr);
 }
 
+function toggleTodoStatus(spaceName, todoID) {
+    const spacesArr = retrieveSpacesArray();
+    const todoRef = getTodoRef(spacesArr, spaceName, todoID);
+
+    if (todoRef.status === "pending") {
+        todoRef.status = "complete";
+    }
+    else {
+        todoRef.status = "pending";
+    }
+
+    saveSpacesArray(spacesArr);
+    return todoRef.status;
+}
+
 function getTodoRef(spacesArr, spaceName, todoID) {
     return spacesArr
         .find((space) => space.name === spaceName)
@@ -193,6 +210,7 @@ export {
     getUserMadeSpaceNames, 
     deleteTodo, 
     deleteSpace, 
-    updateTodo, 
+    updateTodo,
+    toggleTodoStatus,
     updateSpaceName 
 };

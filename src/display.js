@@ -16,6 +16,11 @@ function clearSpaceList() {
     }
 }
 
+function removeTodoFromSpaceList(todoContainer) {
+    const spaceContainer = document.querySelector("space-contaner");
+    spaceContainer.removeChild(todoContainer);
+}
+
 function renderTodoCount(todoCount) {
     const counterElem = document.querySelector(".todo-count");
     counterElem.textContent = `${todoCount} todos`;
@@ -153,6 +158,7 @@ function populateTodoItemModal(todoID, todoObj) {
 export {
     clearUserMadeSpaces,
     clearSpaceList,
+    removeTodoFromSpaceList,
     renderTodoCount,
     renderSpaceTabs,
     renderSpaceList,
