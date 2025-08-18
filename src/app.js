@@ -5,12 +5,14 @@ import * as Display from "./display.js";
 function initEventListeners() {
     const addSpaceButton = document.querySelector("#add-space-button");
     const submitAddSpaceButton = document.querySelector("#add-space");
+    const navContainer = document.querySelector("nav");
     const submitAddTodoButton = document.querySelector("#add-todo");
     const spaceContainer = document.querySelector(".space-container");
     const todoItemModal = document.querySelector("#modal-todo-item");
 
     addSpaceButton.addEventListener("click", handleOpenAddSpaceModal);
     submitAddSpaceButton.addEventListener("click", handleSubmitAddSpace);
+    navContainer.addEventListener("click", handleNavClick);
     submitAddTodoButton.addEventListener("click", handleSubmitAddTodo);
     spaceContainer.addEventListener("click", handleSpaceContainerClick);
     todoItemModal.addEventListener("click", handleTodoItemModalClick);
@@ -39,6 +41,67 @@ function handleSubmitAddSpace(event) {
     Display.renderSpaceTabs(Logic.getUserMadeSpaceNames());
 }
 
+function handleNavClick(event) {
+    const deleteButton = event.target.closest(".space-delete");
+    if (deleteButton) {
+        handleDeleteSpace(event);
+        return;
+    }
+
+    const editButton = event.target.closest(".space-edit");
+    if (editButton) {
+        handleEditSpaceName(event);
+        return;
+    }
+
+    const spaceTab = event.target.closest(".space-tab");
+    if (spaceTab) {
+        handleSpaceTabClick(event);
+    }
+}
+
+function handleDeleteSpace(event) {
+    const spaceTab = event.target.closest(".space-tab");
+    const spaceName = spaceTab.querySelector(".space-text").textContent;
+    const deleteSpaceModal = document.querySelector("#modal-delete-space");
+
+    deleteSpaceModal.querySelector("h2").textContent = `Delete '${spaceName}' Space?`;
+    Display.displayModal(deleteSpaceModal);
+}
+
+function handleEditSpaceName(event) {
+    const spaceTab = event.target.closest(".space-tab");
+    const spaceName = spaceTab.querySelector(".space-text").textContent;
+    const editSpaceModal = document.querySelector("#modal-edit-space");
+
+    editSpaceModal.querySelector("input").value = spaceName;
+    Display.displayModal(editSpaceModal);
+}
+
+function handleSpaceTabClick(event) {
+    const spaceTab = event.target;
+    const spaceName = spaceTab.querySelector(".space-text").textContent;
+
+    updateActiveTab(spaceTab);
+    Display.clearSpaceList();
+
+    if (spaceName === "Completed") {
+        const spaceListArr = Logic.getCompletedTodoList();
+        Display.renderCompletedList(spaceListArr);
+    }
+    else {
+        const spaceListArr = Logic.getPendingTodoList(spaceName);
+        Display.renderSpaceList(spaceListArr);
+    }
+}
+
+// TODO: Add style for active tab in stylesheet
+function updateActiveTab(spacetab) {
+    const currentActiveTab = document.querySelector(".active-space");
+    currentActiveTab.classList.remove("active-space");
+
+    spaceTab.classList.add("active-space");
+}
 
 function handleSpaceContainerClick(event) {
     const statusCheckbox = event.target.closest(".list-item-checkbox");
