@@ -168,14 +168,14 @@ function handleTodoItemModalClick(event) {
         return;
     }
 
-    const cancelButton = event.target.closest(".modal-cancel");
-    if (cancelButton) {
+    const isCancelButton = event.target.matches(".modal-cancel");
+    if (isCancelButton) {
         handleCloseTodoItemModal();
         return;
     }
 
-    const saveChangesButton = event.target.closest("#save-changes");
-    if (saveChangesButton) {
+    const isSaveButton = event.target.matches("#save-changes");
+    if (isSaveButton) {
         handleTodoSaveChanges(event);
     }
 }
