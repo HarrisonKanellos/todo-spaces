@@ -6,14 +6,14 @@ function initEventListeners() {
     const addSpaceButton = document.querySelector("#add-space-button");
     const submitAddSpaceButton = document.querySelector("#add-space");
     const navContainer = document.querySelector("nav");
-    const submitAddTodoButton = document.querySelector("#add-todo");
+    const addTodoModal = document.querySelector(".modal-add-todo");
     const spaceContainer = document.querySelector(".space-container");
     const todoItemModal = document.querySelector("#modal-todo-item");
 
     addSpaceButton.addEventListener("click", handleOpenAddSpaceModal);
     submitAddSpaceButton.addEventListener("click", handleSubmitAddSpace);
     navContainer.addEventListener("click", handleNavClick);
-    submitAddTodoButton.addEventListener("click", handleSubmitAddTodo);
+    addTodoModal.addEventListener("click", handleAddTodoModalClick);
     spaceContainer.addEventListener("click", handleSpaceContainerClick);
     todoItemModal.addEventListener("click", handleTodoItemModalClick);
 }
@@ -218,6 +218,28 @@ function handleTodoSaveChanges(event) {
 function handleOpenAddTodoModal() {
     const addTodoModal = document.querySelector(".modal-add-todo");
     Display.displayModal(addTodoModal);
+}
+
+function handleAddTodoModalClick(event) {
+    const closeButton = event.target.closest(".close-modal");
+    if (closeButton) {
+        handleCloseAddTodoModal();
+    }
+
+    const isCancelButton = event.target.matches(".modal-cancel");
+    if (isCancelButton) {
+        handleCloseAddTodoModal();
+    }
+
+    const isSaveButton = event.target.matches("#add-todo");
+    if (isSaveButton) {
+        handleSubmitAddTodo(event);
+    }
+}
+
+function handleCloseAddTodoModal() {
+    const addTodoModal = document.querySelector(".modal-add-todo");
+    Display.closeModal(addTodoModal);
 }
 
 function handleSubmitAddTodo(event) {
