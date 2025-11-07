@@ -1,11 +1,73 @@
 /* Resets */
 * {
+    font-size: 16px;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+body {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 100vh;
+}
+
+.left-sidebar {
+    background-color: dimgrey;
+    color: rgb(245, 245, 245);
+    padding: 50px 25px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+h1 {
+    color: rgb(245, 245, 245);
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+}
+
+.your-spaces-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+h2 {
+    font-size: 1.6rem;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.space-tab {
+    height: 40px;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.space-text {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-right: auto;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 150px 1fr;
+}
+
 #add-space-icon,
-#add-todo-icon {
+#add-todo-icon,
+.space-delete-icon,
+.space-edit-icon {
     height: 30px;
 }
