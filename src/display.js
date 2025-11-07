@@ -1,6 +1,6 @@
-import deleteIcon from "./assets/icons/delete-icon.svg";
-import editIcon from "./assets/icons/edit-icon.svg";
-import addIcon from "./assets/icons/add-icon.svg";
+import deleteIconSvg from "./assets/icons/delete-icon.svg";
+import editIconSvg from "./assets/icons/edit-icon.svg";
+import addIconSvg from "./assets/icons/add-icon.svg";
 
 function clearUserMadeSpaces() {
     const nav = document.querySelector("nav");
@@ -54,7 +54,7 @@ function createSpaceTab(spaceName) {
 
     const deleteIcon = document.createElement("img");
     deleteIcon.classList.add("space-delete-icon");
-    deleteIcon.src = deleteIcon;
+    deleteIcon.src = deleteIconSvg;
     deleteIcon.alt = "delete";
 
     const editButton = document.createElement("button");
@@ -63,7 +63,7 @@ function createSpaceTab(spaceName) {
 
     const editIcon = document.createElement("img");
     editIcon.classList.add("space-edit-icon");
-    editIcon.src = editIcon;
+    editIcon.src = editIconSvg;
     editIcon.alt = "edit";
 
     deleteButton.appendChild(deleteIcon);
@@ -146,7 +146,7 @@ function createAddTodoButton() {
 
     const addIcon = document.createElement("img");
     addIcon.id = "add-todo-icon";
-    addIcon.src = addIcon;
+    addIcon.src = addIconSvg;
     addIcon.alt = "add icon";
 
     const addTodoText = document.createElement("p");
