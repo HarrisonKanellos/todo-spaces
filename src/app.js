@@ -210,7 +210,7 @@ function handleTodoSaveChanges(event) {
     Logic.updateTodo(spaceName, todoID, todoDataObj);
     Display.closeModal(todoItemModal);
     
-    const todoListArr = Logic.getTodoList(spaceName);
+    const todoListArr = Logic.getTodoObjFromID(spaceName);
     Display.clearSpaceList();
     Display.renderSpaceList(todoListArr);
 }
@@ -258,7 +258,7 @@ function handleSubmitAddTodo(event) {
     
     Display.closeModal(addTodoModal);
     
-    const todoListArr = Logic.getTodoList(spaceName);
+    const todoListArr = Logic.getTodoObjFromID(spaceName);
     Display.clearSpaceList();
     Display.renderSpaceList(todoListArr);
     Display.renderTodoCount(todoListArr.length);
