@@ -48,6 +48,14 @@ h2 {
     background-color: dimgrey;
     padding: 0;
     border: none;
+    border-radius: 15px;
+    height: 40px;
+}
+
+#add-space-button:hover,
+#add-space-button:active {
+    background-color: #38b000;
+    opacity: 0.8;
 }
 
 #add-space-icon {
@@ -60,8 +68,14 @@ nav {
     gap: 15px;
 }
 
+.active-space {
+    background-color: #38b000;
+}
+
 .space-tab {
     height: 40px;
+    padding: 20px 30px;
+    border-radius: 10px;
 
     display: flex;
     justify-content: flex-end;
@@ -77,7 +91,7 @@ nav {
 
 .space-delete,
 .space-edit {
-    background-color: dimgrey;
+    background-color: transparent;
     padding: 0;
     border: none;
 }
