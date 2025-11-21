@@ -39,6 +39,8 @@ function handleSubmitAddSpace(event) {
     Display.closeModal(addSpaceModal);
     Display.clearUserMadeSpaces();
     Display.renderSpaceTabs(Logic.getUserMadeSpaceNames());
+    // Newly created space should render as active tab
+    // Newly created space's list should be rendered
 }
 
 function handleNavClick(event) {
@@ -95,8 +97,7 @@ function handleSpaceTabClick(event) {
     }
 }
 
-// TODO: Add style for active tab in stylesheet
-function updateActiveTab(spacetab) {
+function updateActiveTab(spaceTab) {
     const currentActiveTab = document.querySelector(".active-space");
     currentActiveTab.classList.remove("active-space");
 
@@ -168,6 +169,7 @@ function handleTodoItemModalClick(event) {
         return;
     }
 
+    // TODO: fix use of matches, returns boolean
     const isCancelButton = event.target.matches(".modal-cancel");
     if (isCancelButton) {
         handleCloseTodoItemModal();

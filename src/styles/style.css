@@ -63,6 +63,8 @@ h2 {
 }
 
 nav {
+    padding: 5px;
+
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -83,6 +85,11 @@ nav {
     gap: 10px;
 }
 
+.space-tab:hover .space-delete,
+.space-tab:hover .space-edit {
+    display: inline-block;
+}
+
 .space-text {
     font-size: 1.3rem;
     font-weight: bold;
@@ -94,11 +101,13 @@ nav {
     background-color: transparent;
     padding: 0;
     border: none;
+    display: none;
 }
 
 .space-delete-icon,
 .space-edit-icon {
     height: 22px;
+    width: 22px;
 }
 
 /* Main section */
