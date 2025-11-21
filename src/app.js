@@ -2,25 +2,47 @@ import "./styles/style.css";
 import * as Logic from "./logic.js";
 import * as Display from "./display.js";
 
+initEventListeners();
+
 function initEventListeners() {
     const addSpaceButton = document.querySelector("#add-space-button");
-    const submitAddSpaceButton = document.querySelector("#add-space");
     const navContainer = document.querySelector("nav");
-    const addTodoModal = document.querySelector(".modal-add-todo");
     const spaceContainer = document.querySelector(".space-container");
-    const todoItemModal = document.querySelector("#modal-todo-item");
 
     addSpaceButton.addEventListener("click", handleOpenAddSpaceModal);
-    submitAddSpaceButton.addEventListener("click", handleSubmitAddSpace);
     navContainer.addEventListener("click", handleNavClick);
-    addTodoModal.addEventListener("click", handleAddTodoModalClick);
     spaceContainer.addEventListener("click", handleSpaceContainerClick);
-    todoItemModal.addEventListener("click", handleTodoItemModalClick);
 }
 
 function handleOpenAddSpaceModal() {
     const addSpaceModal = document.querySelector(".modal-add-space");
+    addSpaceModal.addEventListener("click", handleAddSpaceModalClick);
     Display.displayModal(addSpaceModal);
+}
+
+function handleAddSpaceModalClick(event) {
+    const closeButton = event.target.closest(".close-modal");
+    if (closeButton) {
+        handleCloseAddSpaceModal();
+        return;
+    }
+
+    const isCancelButton = event.target.matches(".modal-cancel");
+    if (isCancelButton) {
+        handleCloseAddSpaceModal();
+        return;
+    }
+
+    const isSubmitButton = event.target.matches("#add-space");
+    if (isSubmitButton) {
+        handleSubmitAddSpace(event);
+    }
+}
+
+function handleCloseAddSpaceModal() {
+    const addSpaceModal = document.querySelector(".modal-add-space");
+    addSpaceModal.removeEventListener("click", handleAddSpaceModalClick);
+    Display.closeModal(addSpaceModal);
 }
 
 function handleSubmitAddSpace(event) {
@@ -153,6 +175,7 @@ function handleTodoItemClick(todoItem) {
     Display.populateTodoItemModal(todoID, todoObj);
     
     const todoItemModal = document.querySelector("#modal-todo-item");
+    todoItemModal.addEventListener("click", handleTodoItemModalClick);
     Display.displayModal(todoItemModal);
 }
 
@@ -192,6 +215,7 @@ function handleDeleteFromTodoModal() {
 
 function handleCloseTodoItemModal() {
     const todoItemModal = document.querySelector("#modal-todo-item");
+    todoItemModal.removeEventListener("click", handleTodoItemModalClick);
     Display.closeModal(todoItemModal);
 }
 
@@ -219,6 +243,7 @@ function handleTodoSaveChanges(event) {
 
 function handleOpenAddTodoModal() {
     const addTodoModal = document.querySelector(".modal-add-todo");
+    addTodoModal.addEventListener("click", handleAddTodoModalClick)
     Display.displayModal(addTodoModal);
 }
 
@@ -226,11 +251,13 @@ function handleAddTodoModalClick(event) {
     const closeButton = event.target.closest(".close-modal");
     if (closeButton) {
         handleCloseAddTodoModal();
+        return;
     }
 
     const isCancelButton = event.target.matches(".modal-cancel");
     if (isCancelButton) {
         handleCloseAddTodoModal();
+        return;
     }
 
     const isSaveButton = event.target.matches("#add-todo");
@@ -241,6 +268,7 @@ function handleAddTodoModalClick(event) {
 
 function handleCloseAddTodoModal() {
     const addTodoModal = document.querySelector(".modal-add-todo");
+    addTodoModal.removeEventListener("click", handleAddTodoModalClick);
     Display.closeModal(addTodoModal);
 }
 
