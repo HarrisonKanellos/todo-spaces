@@ -2,6 +2,7 @@ import "./styles/style.css";
 import * as Logic from "./logic.js";
 import * as Display from "./display.js";
 
+Logic.initSpaces();
 initEventListeners();
 
 function initEventListeners() {
@@ -51,8 +52,8 @@ function handleSubmitAddSpace(event) {
     const addSpaceModal = document.querySelector(".modal-add-space");
     const spaceNameInput = document.querySelector("#space-name");
 
-    spaceName = spaceNameInput.value;
-    if (!addNewSpace(spaceName)) {
+    const spaceName = spaceNameInput.value;
+    if (!Logic.addNewSpace(spaceName)) {
         // Runs if name already exists
         // Provide UI message to user
         return;
