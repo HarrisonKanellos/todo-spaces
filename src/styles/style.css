@@ -1,5 +1,6 @@
 /* Resets */
 * {
+    color:#f5f5f5;
     font-size: 16px;
     margin: 0;
     padding: 0;
@@ -8,6 +9,14 @@
 
 button {
     outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+input {
+    outline: none;
+    box-shadow: none;
+    border: none;
 }
 
 /* Main Page */
@@ -194,4 +203,108 @@ header {
 #add-new-todo:hover,
 #add-new-todo:active {
     background-color: rgb(68, 68, 68);
+}
+
+/* Modals */
+dialog {
+    background-color: rgb(50, 50, 50);
+    border: none;
+    border-radius: 10px;
+}
+
+::backdrop {
+    background-color:rgb(20, 20, 20);
+    opacity: 0.5;
+}
+
+.modal-top-container {
+    width: 450px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-heading {
+    color: #f5f5f5;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.close-modal {
+    border-radius: 10px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-modal:hover,
+.close-modal:active {
+    background-color: rgb(85, 85, 85);
+}
+
+.close-icon {
+    height: 20px;
+}
+
+input[type="text"] {
+    font-size: 1.1rem;
+    background-color: transparent;
+    padding: 10px;
+    border: 2px solid rgb(68, 68, 68);
+    border-radius: 5px;
+}
+
+input[type="text"]:hover,
+input[type="text"]:focus {
+    border: 2px solid rgb(153, 153, 153);
+}
+
+.modal-button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-cancel,
+.modal-submit {
+    padding: 8px 12px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.modal-cancel {
+    background-color: rgb(105, 105, 105);
+}
+
+.modal-cancel:hover,
+.modal-cancel:active {
+    background-color: rgb(150, 150, 150);
+}
+
+.modal-submit {
+    background-color: #38b000;
+}
+
+.modal-submit:hover,
+.modal-submit:active {
+    background-color: #66c53a;
+}
+
+/* Add Space Modal */
+.modal-add-space[open] {
+    padding: 20px;
+    margin: 0 auto;
+    top: 40vh;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+#add-space-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
