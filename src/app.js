@@ -3,6 +3,7 @@ import * as Logic from "./logic.js";
 import * as Display from "./display.js";
 
 Logic.initSpaces();
+initDisplay();
 initEventListeners();
 
 function initEventListeners() {
@@ -13,6 +14,12 @@ function initEventListeners() {
     addSpaceButton.addEventListener("click", handleOpenAddSpaceModal);
     navContainer.addEventListener("click", handleNavClick);
     spaceContainer.addEventListener("click", handleSpaceContainerClick);
+}
+
+function initDisplay() {
+    Display.renderSpaceTabs(Logic.getUserMadeSpaceNames());
+    Display.clearSpaceList();
+    Display.renderSpaceList(Logic.getPendingTodoList("Common"));
 }
 
 function handleOpenAddSpaceModal() {
@@ -149,7 +156,7 @@ function handleSpaceTabClick(event) {
     const spaceTab = event.target.closest(".space-tab");
     const spaceName = spaceTab.querySelector(".space-text").textContent;
 
-    updateActiveTab(spaceTab);
+    Display.updateActiveTab(spaceTab);
     Display.clearSpaceList();
 
     if (spaceName === "Completed") {
@@ -160,13 +167,6 @@ function handleSpaceTabClick(event) {
         const spaceListArr = Logic.getPendingTodoList(spaceName);
         Display.renderSpaceList(spaceListArr);
     }
-}
-
-function updateActiveTab(spaceTab) {
-    const currentActiveTab = document.querySelector(".active-space");
-    currentActiveTab.classList.remove("active-space");
-
-    spaceTab.classList.add("active-space");
 }
 
 function handleSpaceContainerClick(event) {

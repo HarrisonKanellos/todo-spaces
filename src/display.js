@@ -164,6 +164,13 @@ function updateSpaceHeading(spaceName) {
     spaceHeadingText.textContent = `${spaceName}`;
 }
 
+function updateActiveTab(spaceTab) {
+    const currentActiveTab = document.querySelector(".active-space");
+    currentActiveTab.classList.remove("active-space");
+
+    spaceTab.classList.add("active-space");
+}
+
 function displayModal(modalElement) {
     modalElement.showModal();
 }
@@ -198,6 +205,7 @@ export {
     renderSpaceList,
     renderCompletedList,
     updateSpaceHeading,
+    updateActiveTab,
     displayModal,
     closeModal,
     populateTodoItemModal
