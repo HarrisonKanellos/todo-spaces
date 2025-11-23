@@ -91,7 +91,49 @@ function handleDeleteSpace(event) {
     const deleteSpaceModal = document.querySelector("#modal-delete-space");
 
     deleteSpaceModal.querySelector("h2").textContent = `Delete '${spaceName}' Space?`;
+    deleteSpaceModal.addEventListener("click", handleDeleteSpaceModalClick);
     Display.displayModal(deleteSpaceModal);
+}
+
+function handleDeleteSpaceModalClick(event) {
+    const closeButton = event.target.closest(".modal-close");
+    if (closeButton) {
+        handleCloseDeleteSpaceModal();
+        return;
+    }
+    const isCancel = event.target.matches(".modal-cancel");
+    if (isCancel) {
+        handleCloseDeleteSpaceModal();
+        return;
+    }
+    const isDelete = event.target.matches("#confirm-space-delete");
+    if (isDelete) {
+        handleConfirmDeleteSpace();
+    }
+}
+
+function handleCloseDeleteSpaceModal() {
+    const deleteSpaceModal = document.querySelector("#modal-delete-space");
+    deleteSpaceModal.removeEventListener("click", handleDeleteSpaceModalClick);
+    Display.closeModal(deleteSpaceModal);
+}
+
+function handleConfirmDeleteSpace() {
+    const deleteSpaceModal = document.querySelector("#modal-delete-space");
+    const headingText = deleteSpaceModal.querySelector("h2").textContent;
+    const spaceName = getSpaceNameFromHeading(headingText);
+
+    Logic.deleteSpace(spaceName);
+
+    Display.closeModal(deleteSpaceModal);
+    Display.clearUserMadeSpaces();
+    Display.renderSpaceTabs(Logic.getUserMadeSpaceNames());
+}
+
+function getSpaceNameFromHeading(headingText) {
+    return headingText
+        .split("'")
+        .at(1);
 }
 
 function handleEditSpaceName(event) {

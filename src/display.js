@@ -4,7 +4,7 @@ import addIconSvg from "./assets/icons/add-icon.svg";
 
 function clearUserMadeSpaces() {
     const nav = document.querySelector("nav");
-    const tabs = nav.children;
+    const tabs = nav.querySelectorAll(".space-tab");
     
     for (let i = 1, len = tabs.length; i < len - 1; i++) {
         nav.removeChild(tabs[i]);
