@@ -78,7 +78,7 @@ function saveSpace(space) {
 
     spaces.push(space);
     
-    const jsonSpaces = JSON.stringify(spacesArray);
+    const jsonSpaces = JSON.stringify(spaces);
     localStorage.setItem("spaces", jsonSpaces)
 }
 
@@ -119,7 +119,7 @@ function getUserMadeSpaceNames() {
     
     // Skips the first space as is the default 'common' space, not user made
     for (let i = 1, len = spaces.length; i < len; i++) {
-        spaceNames.push(space.name);
+        spaceNames.push(spaces.at(i).name);
     }
 
     return spaceNames;

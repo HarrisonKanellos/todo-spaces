@@ -4,16 +4,16 @@ import addIconSvg from "./assets/icons/add-icon.svg";
 
 function clearUserMadeSpaces() {
     const nav = document.querySelector("nav");
-    const tabs = nav.childNodes;
+    const tabs = nav.children;
     
     for (let i = 1, len = tabs.length; i < len - 1; i++) {
-        navElem.removeChild(tabs[i]);
+        nav.removeChild(tabs[i]);
     }
 }
 
 function clearSpaceList() {
     const space = document.querySelector(".space-container");
-    const children = space.childNodes;
+    const children = space.children;
 
     for (let i = 0, len = children.length; i < len; i++) {
         space.removeChild(children[i]);
@@ -45,7 +45,7 @@ function createSpaceTab(spaceName) {
     tab.classList.add("space-tab");
 
     const spaceText = document.createElement("p");
-    spaceText.classList .add("space-text");
+    spaceText.classList.add("space-text");
     spaceText.textContent = spaceName;
 
     const deleteButton = document.createElement("button");
@@ -90,7 +90,7 @@ function renderSpaceList(spaceListArr) {
 function renderCompletedList(completedTodoArr) {
     const spaceContainer = document.querySelector(".space-container");
 
-    spaceListArr.forEach((todoObj) => {
+    completedTodoArr.forEach((todoObj) => {
         const todoItemElement = createTodoItem(todoObj);
         spaceContainer.appendChild(todoItemElement);
     });

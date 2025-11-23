@@ -104,7 +104,7 @@ function handleEditSpaceName(event) {
 }
 
 function handleSpaceTabClick(event) {
-    const spaceTab = event.target;
+    const spaceTab = event.target.closest(".space-tab");
     const spaceName = spaceTab.querySelector(".space-text").textContent;
 
     updateActiveTab(spaceTab);
