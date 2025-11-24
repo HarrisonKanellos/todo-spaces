@@ -64,16 +64,21 @@ function handleSubmitAddSpace(event) {
     const spaceName = spaceNameInput.value;
     if (!Logic.addNewSpace(spaceName)) {
         // Runs if name already exists
-        // Provide UI message to user
+        // TODO: provide UI message to user
         return;
     }
 
-    // TODO: remove event listener from modal
+    addSpaceModal.removeEventListener("click", handleAddSpaceModalClick);
     Display.closeModal(addSpaceModal);
+
     Display.clearUserMadeSpaces();
     Display.renderSpaceTabs(Logic.getUserMadeSpaceNames());
-    // Newly created space should render as active tab
-    // Newly created space's list should be rendered
+    Display.selectActiveTabByName(spaceName);
+
+    Display.updateSpaceHeading(spaceName);
+    Display.renderTodoCount(Logic.getPendingTodoCount(spaceName));
+    Display.clearSpaceList();
+    Display.renderSpaceList(Logic.getPendingTodoList(spaceName));
 }
 
 function handleNavClick(event) {
