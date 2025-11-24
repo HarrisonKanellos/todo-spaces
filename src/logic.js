@@ -20,7 +20,6 @@ function createSpace(name) {
     }
 }
 
-// Use on page load event
 function initSpaces() {
     if (spacesArrayExists()) {
         return;
@@ -125,6 +124,32 @@ function getUserMadeSpaceNames() {
     return spaceNames;
 }
 
+function getPendingTodoCount(spaceName) {
+    const spaces = retrieveSpacesArray();
+    
+    return spaces
+        .find((space) => space.name === spaceName)
+        .todoList.reduce((todoCount, todoItem) => {
+            if (todoItem.status === "pending") {
+                return todoCount++;
+            }
+        }, 0);
+}
+
+function getCompletedTodoCount() {
+    const spaces = retrieveSpacesArray();
+    let todoCount = 0;
+
+    spaces.forEach((space) => {
+        space.todoList.forEach((todoItem) => {
+            if (todoItem.status === "complete") {
+                todoCount++;
+            }
+        });
+    });
+    return todoCount;
+}
+
 function deleteTodo(spaceName, todoID) {
     const spacesArr = retrieveSpacesArray();
 
@@ -219,7 +244,9 @@ export {
     getTodoObjFromID,
     getPendingTodoList, 
     getCompletedTodoList,
-    getUserMadeSpaceNames, 
+    getUserMadeSpaceNames,
+    getPendingTodoCount,
+    getCompletedTodoCount, 
     deleteTodo, 
     deleteSpace, 
     updateTodo,
