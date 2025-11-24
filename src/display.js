@@ -171,10 +171,7 @@ function updateSpaceHeading(spaceName) {
 
 function updateActiveTab(spaceTab) {
     const currentActiveTab = document.querySelector(".active-space");
-    if (!currentActiveTab) {
-        currentActiveTab.classList.remove("active-space");
-    }
-
+    currentActiveTab.classList.remove("active-space");
     spaceTab.classList.add("active-space");
 }
 
