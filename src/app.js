@@ -137,13 +137,35 @@ function handleConfirmDeleteSpace() {
     const deleteSpaceModal = document.querySelector("#modal-delete-space");
     const headingText = deleteSpaceModal.querySelector("h2").textContent;
     const spaceName = getSpaceNameFromHeading(headingText);
+    let activeTabName = document.querySelector(".active-space .space-text").textContent;
+    const isActiveTab = activeTabName === spaceName ? true : false;
 
     Logic.deleteSpace(spaceName);
 
-    // TODO: remove event listener from modal
+    deleteSpaceModal.removeEventListener("click", handleDeleteSpaceModalClick);
     Display.closeModal(deleteSpaceModal);
+
     Display.clearUserMadeSpaces();
     Display.renderSpaceTabs(Logic.getUserMadeSpaceNames());
+    
+    // If deleted space was the active tab
+    // default the active tab back to "Common"
+    if (isActiveTab) {
+        activeTabName = "Common";
+    }
+    Display.selectActiveTabByName(activeTabName);
+    Display.updateSpaceHeading(activeTabName);
+
+    if (activeTabName === "Completed") {
+        Display.renderTodoCount(Logic.getCompletedTodoCount());
+        Display.clearSpaceList();
+        Display.renderSpaceList(Logic.getCompletedTodoList());
+    }
+    else {
+        Display.renderTodoCount(Logic.getPendingTodoCount(activeTabName));
+        Display.clearSpaceList();
+        Display.renderSpaceList(Logic.getPendingTodoList(activeTabName));
+    }
 }
 
 function getSpaceNameFromHeading(headingText) {
@@ -192,6 +214,7 @@ function handleSaveSpaceChanges(event) {
     const editSpaceModal = document.querySelector("#modal-edit-space");
     const prevSpaceName = editSpaceModal.dataset.prevName;
     const updatedSpaceName = document.querySelector("#updated-space-name").value;
+    const prevActiveSpaceName = document.querySelector(".active-space .space-text").textContent;
     if (!Logic.updateSpaceName(prevSpaceName, updatedSpaceName)) {
         // Runs if name already exists
         // TODO: provide UI message to user within modal (do not close modal/removeEventListener)
@@ -199,8 +222,6 @@ function handleSaveSpaceChanges(event) {
     }
     editSpaceModal.removeEventListener("click", handleEditSpaceModalClick);
     
-    // Get active space before clearing UI
-    const prevActiveSpaceName = document.querySelector(".active-space .space-text").textContent;
     Display.closeModal(editSpaceModal);
     Display.clearUserMadeSpaces()
     Display.renderSpaceTabs(Logic.getUserMadeSpaceNames());
