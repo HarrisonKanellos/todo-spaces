@@ -20,6 +20,8 @@ function initDisplay() {
     Display.renderSpaceTabs(Logic.getUserMadeSpaceNames());
     Display.clearSpaceList();
     Display.renderSpaceList(Logic.getPendingTodoList("Common"));
+    Display.updateSpaceHeading("Common");
+    Display.renderTodoCount(Logic.getPendingTodoCount("Common"));
 }
 
 function handleOpenAddSpaceModal() {
