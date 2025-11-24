@@ -57,7 +57,7 @@ function handleSubmitAddSpace(event) {
     event.preventDefault();
 
     const addSpaceModal = document.querySelector(".modal-add-space");
-    const spaceNameInput = document.querySelector("#space-name");
+    const spaceNameInput = document.querySelector("#new-space-name");
 
     const spaceName = spaceNameInput.value;
     if (!Logic.addNewSpace(spaceName)) {
@@ -66,6 +66,7 @@ function handleSubmitAddSpace(event) {
         return;
     }
 
+    // TODO: remove event listener from modal
     Display.closeModal(addSpaceModal);
     Display.clearUserMadeSpaces();
     Display.renderSpaceTabs(Logic.getUserMadeSpaceNames());
@@ -132,6 +133,7 @@ function handleConfirmDeleteSpace() {
 
     Logic.deleteSpace(spaceName);
 
+    // TODO: remove event listener from modal
     Display.closeModal(deleteSpaceModal);
     Display.clearUserMadeSpaces();
     Display.renderSpaceTabs(Logic.getUserMadeSpaceNames());
@@ -148,8 +150,63 @@ function handleEditSpaceName(event) {
     const spaceName = spaceTab.querySelector(".space-text").textContent;
     const editSpaceModal = document.querySelector("#modal-edit-space");
 
+    editSpaceModal.dataset.prevName = spaceName;
     editSpaceModal.querySelector("input").value = spaceName;
+    editSpaceModal.addEventListener("click", handleEditSpaceModalClick);
     Display.displayModal(editSpaceModal);
+}
+
+function handleEditSpaceModalClick(event) {
+    const closeButton = event.target.closest(".modal-close");
+    if (closeButton) {
+        handleCloseEditSpaceModal();
+        return;
+    }
+    const isCancel = event.target.matches(".modal-cancel");
+    if (isCancel) {
+        handleCloseEditSpaceModal();
+        return;
+    }
+    const isSave = event.target.matches("#save-space-changes");
+    if (isSave) {
+        handleSaveSpaceChanges(event);
+    }
+}
+
+function handleCloseEditSpaceModal() {
+    const editSpaceModal = document.querySelector("#modal-edit-space");
+    editSpaceModal.removeEventListener("click", handleEditSpaceModalClick);
+    Display.closeModal(editSpaceModal);
+}
+
+function handleSaveSpaceChanges(event) {
+    event.preventDefault();
+    
+    const editSpaceModal = document.querySelector("#modal-edit-space");
+    const prevSpaceName = editSpaceModal.dataset.prevName;
+    const updatedSpaceName = document.querySelector("#updated-space-name").value;
+    if (!Logic.updateSpaceName(prevSpaceName, updatedSpaceName)) {
+        // Runs if name already exists
+        // TODO: provide UI message to user within modal (do not close modal/removeEventListener)
+        return;
+    }
+    editSpaceModal.removeEventListener("click", handleEditSpaceModalClick);
+    
+    // Get active space before clearing UI
+    const prevActiveSpaceName = document.querySelector(".active-space .space-text").textContent;
+    Display.closeModal(editSpaceModal);
+    Display.clearUserMadeSpaces()
+    Display.renderSpaceTabs(Logic.getUserMadeSpaceNames());
+        
+    // Update space heading and active tab if the space's name 
+    // that was updated was the active tab
+    if (prevActiveSpaceName === prevSpaceName) {
+        Display.selectActiveTabByName(updatedSpaceName);
+        Display.updateSpaceHeading(updatedSpaceName);
+    }
+    else {
+        Display.selectActiveTabByName(prevActiveSpaceName);
+    }
 }
 
 function handleSpaceTabClick(event) {
