@@ -177,6 +177,11 @@ function updateActiveTab(spaceTab) {
 
 function selectActiveTabByName(spaceName) {
     const tabs = document.querySelectorAll(".space-tab");
+    const activeSpace = document.querySelector(".active-space");
+    if (activeSpace) {
+        activeSpace.classList.remove("active-space");
+    }
+    
     for (const tab of tabs) {
         if (tab.querySelector(".space-text").textContent === spaceName) {
             tab.classList.add("active-space");
