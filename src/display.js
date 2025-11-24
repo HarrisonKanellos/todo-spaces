@@ -178,6 +178,14 @@ function updateActiveTab(spaceTab) {
     spaceTab.classList.add("active-space");
 }
 
+function selectActiveTabByName(spaceName) {
+    const tabs = document.querySelectorAll(".space-tab");
+    for (const tab of tabs) {
+        if (tab.querySelector(".space-text").textContent === spaceName)
+            tab.classList.add("active-space");
+    }
+}
+
 function displayModal(modalElement) {
     modalElement.showModal();
 }
@@ -213,6 +221,7 @@ export {
     renderCompletedList,
     updateSpaceHeading,
     updateActiveTab,
+    selectActiveTabByName,
     displayModal,
     closeModal,
     populateTodoItemModal
