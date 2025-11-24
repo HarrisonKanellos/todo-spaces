@@ -221,8 +221,8 @@ function handleSaveSpaceChanges(event) {
         return;
     }
     editSpaceModal.removeEventListener("click", handleEditSpaceModalClick);
-    
     Display.closeModal(editSpaceModal);
+
     Display.clearUserMadeSpaces()
     Display.renderSpaceTabs(Logic.getUserMadeSpaceNames());
         
@@ -245,12 +245,14 @@ function handleSpaceTabClick(event) {
     Display.clearSpaceList();
 
     if (spaceName === "Completed") {
-        const spaceListArr = Logic.getCompletedTodoList();
-        Display.renderCompletedList(spaceListArr);
+        Display.updateSpaceHeading("Completed");
+        Display.renderTodoCount(Logic.getCompletedTodoCount());
+        Display.renderCompletedList(Logic.getCompletedTodoList());
     }
     else {
-        const spaceListArr = Logic.getPendingTodoList(spaceName);
-        Display.renderSpaceList(spaceListArr);
+        Display.updateSpaceHeading(spaceName);
+        Display.renderTodoCount(Logic.getPendingTodoCount(spaceName));
+        Display.renderSpaceList(Logic.getPendingTodoList(spaceName));
     }
 }
 
