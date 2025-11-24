@@ -27,7 +27,12 @@ function removeTodoFromSpaceList(todoContainer) {
 
 function renderTodoCount(todoCount) {
     const counterElem = document.querySelector(".todo-count");
-    counterElem.textContent = `${todoCount} todos`;
+    if (todoCount === 1) {
+        counterElem.textContent = `${todoCount} todo`;
+    }
+    else {
+        counterElem.textContent = `${todoCount} todos`;
+    }
 }
 
 function renderSpaceTabs(createdNamesArr) {
@@ -166,7 +171,9 @@ function updateSpaceHeading(spaceName) {
 
 function updateActiveTab(spaceTab) {
     const currentActiveTab = document.querySelector(".active-space");
-    currentActiveTab.classList.remove("active-space");
+    if (!currentActiveTab) {
+        currentActiveTab.classList.remove("active-space");
+    }
 
     spaceTab.classList.add("active-space");
 }
