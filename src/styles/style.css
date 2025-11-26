@@ -2,6 +2,7 @@
 * {
     color:#f5f5f5;
     font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -13,10 +14,13 @@ button {
     background-color: transparent;
 }
 
-input {
+input,
+textarea,
+select {
     outline: none;
     box-shadow: none;
     border: none;
+    appearance: none;
 }
 
 /* Main Page */
@@ -256,19 +260,9 @@ dialog[open] {
     height: 20px;
 }
 
-input[type="text"] {
+.confirm-delete-text {
     font-size: 1.1rem;
-    background-color: transparent;
-    padding: 10px;
-    border: 2px solid rgb(68, 68, 68);
-    border-radius: 5px;
 }
-
-input[type="text"]:hover,
-input[type="text"]:focus {
-    border: 2px solid rgb(153, 153, 153);
-}
-
 .modal-button-container {
     display: flex;
     justify-content: flex-end;
@@ -311,14 +305,73 @@ input[type="text"]:focus {
     top: 40vh;
 }
 
-/* Add Space Modal */
+.modal-add-todo,
+#modal-todo-item {
+    top: 20vh;
+}
+
 #add-space-form,
-#edit-space-form {
+#edit-space-form,
+#add-todo-form,
+#edit-todo-form {
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
-.confirm-delete-text {
+.form-input-container {
+    display: flex;;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Forms */
+input,
+textarea,
+select {
     font-size: 1.1rem;
+    background-color: transparent;
+    padding: 10px;
+    border: 2px solid rgb(68, 68, 68);
+    border-radius: 5px;
+}
+
+input:hover,
+input:focus,
+textarea:hover,
+textarea:focus,
+select:hover,
+select:focus {
+    border: 2px solid rgb(153, 153, 153);
+}
+
+input[type="date"] {
+    color: #f5f5f5;
+}
+
+select {
+  width: 100%;
+  height: 100%;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: "▼";
+  font-size: 1rem;
+  top: 12px;
+  right: 10px;
+  position: absolute;
+}
+
+option {
+    background-color: rgb(50, 50, 50);
+}
+
+label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 10px;
 }

@@ -72,20 +72,24 @@
                     <label for="title-input">Title</label>
                     <input type="text" name="title" id="title-input" placeholder="Enter todo title" autofocus required/>
                     <label for="description-input">Description</label>
-                    <textarea name="description" id="description-input" placeholder="Enter todo description" rows="15" cols="4"></textarea>
+                    <textarea name="description" id="description-input" placeholder="Enter todo description" rows="5" cols="4"></textarea>
                     <label for="due-date-input">Due Date</label>
                     <input type="date" name="due-date" id="due-date-input" value="" />
                     <label for="priority-input">Priority</label>
-                    <select name="priority" id="priority-input">
-                        <option value="high">High</option>
-                        <option value="medium" selected>Medium</option>
-                        <option value="low">Low</option>
-                    </select>
+                    <div class="select-wrapper">
+                        <select name="priority" id="priority-input">
+                            <option value="high">High</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
                     <label for="status-input">Status</label>
-                    <select name="satus" id="status-input">
-                        <option value="pending" selected>Pending</option>
-                        <option value="complete">Complete</option>
-                    </select>
+                    <div class="select-wrapper">
+                        <select name="satus" id="status-input">
+                            <option value="pending" selected>Pending</option>
+                            <option value="complete">Complete</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-button-container">
                     <button class="modal-cancel" type="reset">Cancel</button>
