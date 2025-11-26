@@ -110,6 +110,36 @@ function handleDeleteSpace(event) {
     Display.displayModal(deleteSpaceModal);
 }
 
+function handleEditSpaceName(event) {
+    const spaceTab = event.target.closest(".space-tab");
+    const spaceName = spaceTab.querySelector(".space-text").textContent;
+    const editSpaceModal = document.querySelector("#modal-edit-space");
+
+    editSpaceModal.dataset.prevName = spaceName;
+    editSpaceModal.querySelector("input").value = spaceName;
+    editSpaceModal.addEventListener("click", handleEditSpaceModalClick);
+    Display.displayModal(editSpaceModal);
+}
+
+function handleSpaceTabClick(event) {
+    const spaceTab = event.target.closest(".space-tab");
+    const spaceName = spaceTab.querySelector(".space-text").textContent;
+
+    Display.updateActiveTab(spaceTab);
+    Display.clearSpaceList();
+
+    if (spaceName === "Completed") {
+        Display.updateSpaceHeading("Completed");
+        Display.renderTodoCount(Logic.getCompletedTodoCount());
+        Display.renderCompletedList(Logic.getCompletedTodoList());
+    }
+    else {
+        Display.updateSpaceHeading(spaceName);
+        Display.renderTodoCount(Logic.getPendingTodoCount(spaceName));
+        Display.renderSpaceList(Logic.getPendingTodoList(spaceName));
+    }
+}
+
 function handleDeleteSpaceModalClick(event) {
     const closeButton = event.target.closest(".modal-close");
     if (closeButton) {
@@ -174,17 +204,6 @@ function getSpaceNameFromHeading(headingText) {
         .at(1);
 }
 
-function handleEditSpaceName(event) {
-    const spaceTab = event.target.closest(".space-tab");
-    const spaceName = spaceTab.querySelector(".space-text").textContent;
-    const editSpaceModal = document.querySelector("#modal-edit-space");
-
-    editSpaceModal.dataset.prevName = spaceName;
-    editSpaceModal.querySelector("input").value = spaceName;
-    editSpaceModal.addEventListener("click", handleEditSpaceModalClick);
-    Display.displayModal(editSpaceModal);
-}
-
 function handleEditSpaceModalClick(event) {
     const closeButton = event.target.closest(".modal-close");
     if (closeButton) {
@@ -234,25 +253,6 @@ function handleSaveSpaceChanges(event) {
     }
     else {
         Display.selectActiveTabByName(prevActiveSpaceName);
-    }
-}
-
-function handleSpaceTabClick(event) {
-    const spaceTab = event.target.closest(".space-tab");
-    const spaceName = spaceTab.querySelector(".space-text").textContent;
-
-    Display.updateActiveTab(spaceTab);
-    Display.clearSpaceList();
-
-    if (spaceName === "Completed") {
-        Display.updateSpaceHeading("Completed");
-        Display.renderTodoCount(Logic.getCompletedTodoCount());
-        Display.renderCompletedList(Logic.getCompletedTodoList());
-    }
-    else {
-        Display.updateSpaceHeading(spaceName);
-        Display.renderTodoCount(Logic.getPendingTodoCount(spaceName));
-        Display.renderSpaceList(Logic.getPendingTodoList(spaceName));
     }
 }
 
@@ -307,6 +307,12 @@ function handleTodoItemClick(todoItem) {
     const todoItemModal = document.querySelector("#modal-todo-item");
     todoItemModal.addEventListener("click", handleTodoItemModalClick);
     Display.displayModal(todoItemModal);
+}
+
+function handleOpenAddTodoModal() {
+    const addTodoModal = document.querySelector(".modal-add-todo");
+    addTodoModal.addEventListener("click", handleAddTodoModalClick)
+    Display.displayModal(addTodoModal);
 }
 
 function handleTodoItemModalClick(event) {
@@ -373,12 +379,6 @@ function handleTodoSaveChanges(event) {
     else {
         Display.renderSpaceList(Logic.getPendingTodoList(spaceName));
     }
-}
-
-function handleOpenAddTodoModal() {
-    const addTodoModal = document.querySelector(".modal-add-todo");
-    addTodoModal.addEventListener("click", handleAddTodoModalClick)
-    Display.displayModal(addTodoModal);
 }
 
 function handleAddTodoModalClick(event) {

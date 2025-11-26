@@ -126,17 +126,23 @@ function createTodoItem(todoObj) {
     deleteButton.classList.add("list-item-delete");
     deleteButton.type = "button";
 
+    const deleteIcon = document.createElement("img");
+    deleteIcon.classList.add("todo-delete-icon");
+    deleteIcon.src = deleteIconSvg;
+
     const leftContainer = document.createElement("div");
     leftContainer.classList.add("list-item-left");
     
     const rightContainer = document.createElement("div");
     rightContainer.classList.add("list-item-right");
 
+    deleteButton.appendChild(deleteIcon);
+
     leftContainer.appendChild(titleText);
     leftContainer.appendChild(descriptionText);
 
-    rightContainer.appendChild(checkboxStatus);
     rightContainer.appendChild(deleteButton);
+    rightContainer.appendChild(checkboxStatus);
 
     todoContainer.appendChild(leftContainer);
     todoContainer.appendChild(rightContainer);
