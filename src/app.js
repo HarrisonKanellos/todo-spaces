@@ -31,7 +31,7 @@ function handleOpenAddSpaceModal() {
 }
 
 function handleAddSpaceModalClick(event) {
-    const closeButton = event.target.closest(".close-modal");
+    const closeButton = event.target.closest(".modal-close");
     if (closeButton) {
         handleCloseAddSpaceModal();
         return;
@@ -378,7 +378,7 @@ function handleOpenAddTodoModal() {
 }
 
 function handleAddTodoModalClick(event) {
-    const closeButton = event.target.closest(".close-modal");
+    const closeButton = event.target.closest(".modal-close");
     if (closeButton) {
         handleCloseAddTodoModal();
         return;
