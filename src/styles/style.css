@@ -212,6 +212,15 @@ dialog {
     border-radius: 10px;
 }
 
+dialog[open] {
+    padding: 20px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
 ::backdrop {
     background-color:rgb(20, 20, 20);
     opacity: 0.5;
@@ -230,7 +239,7 @@ dialog {
     font-weight: bold;
 }
 
-.close-modal {
+.modal-close {
     border-radius: 10px;
     padding: 5px;
     display: flex;
@@ -238,8 +247,8 @@ dialog {
     align-items: center;
 }
 
-.close-modal:hover,
-.close-modal:active {
+.modal-close:hover,
+.modal-close:active {
     background-color: rgb(85, 85, 85);
 }
 
@@ -268,7 +277,8 @@ input[type="text"]:focus {
 }
 
 .modal-cancel,
-.modal-submit {
+.modal-submit,
+.confirm-delete-button {
     padding: 8px 12px;
     font-weight: bold;
     border-radius: 5px;
@@ -283,28 +293,32 @@ input[type="text"]:focus {
     background-color: rgb(150, 150, 150);
 }
 
-.modal-submit {
+.modal-submit,
+.confirm-delete-button {
     background-color: #38b000;
 }
 
 .modal-submit:hover,
-.modal-submit:active {
+.modal-submit:active,
+.confirm-delete-button:hover,
+.confirm-delete-button:active {
     background-color: #66c53a;
 }
 
-/* Add Space Modal */
-.modal-add-space[open] {
-    padding: 20px;
-    margin: 0 auto;
+.modal-add-space,
+#modal-delete-space,
+#modal-edit-space {
     top: 40vh;
+}
 
+/* Add Space Modal */
+#add-space-form,
+#edit-space-form {
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
-#add-space-form {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+.confirm-delete-text {
+    font-size: 1.1rem;
 }
