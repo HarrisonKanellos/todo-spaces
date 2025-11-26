@@ -326,6 +326,7 @@ dialog[open] {
 .confirm-delete-text {
     font-size: 1.1rem;
 }
+
 .modal-button-container {
     display: flex;
     justify-content: flex-end;
@@ -391,6 +392,32 @@ dialog[open] {
 .modal-delete-icon {
     height: 25px;
     width: 25px;
+}
+
+/* Todo item modal */
+#modal-todo-item .modal-top-container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 20px;
+}
+
+#modal-todo-item .modal-heading {
+    margin-right: auto;
+}
+
+.modal-delete-button {
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-delete-button:hover {
+    background-color: #2b8800cc;
 }
 
 /* Forms */
