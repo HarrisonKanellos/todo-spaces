@@ -422,7 +422,9 @@ function handleSubmitAddTodo(event) {
     
     Display.closeModal(addTodoModal);
     
+    const todoListArr = Logic.getPendingTodoList(spaceName);
     Display.clearSpaceList();
-    Display.renderSpaceList(Logic.getPendingTodoList(spaceName));
+    Display.renderSpaceList(todoListArr);
+    // TODO: fix NaN outputs when rendering todo count
     Display.renderTodoCount(todoListArr.length);
 }
