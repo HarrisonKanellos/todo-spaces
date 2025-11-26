@@ -153,15 +153,23 @@ function getCompletedTodoCount() {
 function deleteTodo(spaceName, todoID) {
     const spacesArr = retrieveSpacesArray();
 
-    const newSpace = spacesArr
+    const newSpaceTodoList = spacesArr
         .find((space) => space.name === spaceName)
-        .todoList.filter((todoItem) => todoItem.id !== todoID);
+        .todoList.filter((todoItem) => {
+            if (todoItem.id === todoID) {
+                return false;
+            }
+            return true;
+        });
 
-    const newSpacesArr = spaces.map((space) => {
-        if (space.name = spaceName) {
-            return newSpace;
-        }
-    });
+    const newSpacesArr = spacesArr
+        .map((space) => {
+            if (space.name === spaceName) {
+                space.todoList = newSpaceTodoList;
+                return space;
+            }
+            return space;
+        })
 
     saveSpacesArray(newSpacesArr);
 }

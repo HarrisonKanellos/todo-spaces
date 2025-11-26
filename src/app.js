@@ -186,14 +186,13 @@ function handleConfirmDeleteSpace() {
     Display.selectActiveTabByName(activeTabName);
     Display.updateSpaceHeading(activeTabName);
 
+    Display.clearSpaceList();
     if (activeTabName === "Completed") {
         Display.renderTodoCount(Logic.getCompletedTodoCount());
-        Display.clearSpaceList();
         Display.renderSpaceList(Logic.getCompletedTodoList());
     }
     else {
         Display.renderTodoCount(Logic.getPendingTodoCount(activeTabName));
-        Display.clearSpaceList();
         Display.renderSpaceList(Logic.getPendingTodoList(activeTabName));
     }
 }
@@ -295,6 +294,7 @@ function handleDeleteFromSpaceList(event) {
     const todoID = event.target.closest(".space-list-todo").dataset.id;
     todoDeleteModal.dataset.id = todoID;
     
+    todoDeleteModal.addEventListener("click", handleDeleteTodoModalClick);
     Display.displayModal(todoDeleteModal);
 }
 
@@ -305,6 +305,7 @@ function handleTodoItemClick(todoItem) {
     Display.populateTodoItemModal(todoID, todoObj);
     
     const todoItemModal = document.querySelector("#modal-todo-item");
+    todoItemModal.dataset.id = todoID;
     todoItemModal.addEventListener("click", handleTodoItemModalClick);
     Display.displayModal(todoItemModal);
 }
@@ -346,6 +347,7 @@ function handleDeleteFromTodoModal() {
     const todoID = document.querySelector("#modal-todo-item").dataset.id;
     todoDeleteModal.dataset.id = todoID;
     
+    todoDeleteModal.addEventListener("click", handleDeleteTodoModalClick)
     Display.displayModal(todoDeleteModal);
 }
 
@@ -377,6 +379,55 @@ function handleTodoSaveChanges(event) {
         Display.renderSpaceList(Logic.getCompletedTodoList());
     }
     else {
+        Display.renderSpaceList(Logic.getPendingTodoList(spaceName));
+    }
+}
+
+function handleDeleteTodoModalClick(event) {
+    const closeButton = event.target.closest(".modal-close");
+    if (closeButton) {
+        handleCloseDeleteTodoModal();
+        return;
+    }
+    const isCancel = event.target.matches(".modal-cancel");
+    if (isCancel) {
+        handleCloseDeleteTodoModal();
+        return;
+    }
+    const isDelete = event.target.matches("#confirm-todo-delete");
+    if (isDelete) {
+        handleConfirmDeleteTodo(event);
+    }
+}
+
+function handleCloseDeleteTodoModal() {
+    const deleteTodoModal = document.querySelector("#modal-delete-todo");
+    deleteTodoModal.removeEventListener("click", handleDeleteTodoModalClick);
+    Display.closeModal(deleteTodoModal);
+}
+
+function handleConfirmDeleteTodo(event) {
+    const deleteTodoModal = document.querySelector("#modal-delete-todo");
+    const spaceName = document.querySelector(".space-heading").textContent;
+    const todoID = deleteTodoModal.dataset.id;
+
+    Logic.deleteTodo(spaceName, todoID);
+
+    deleteTodoModal.removeEventListener("click", handleDeleteTodoModalClick);
+    Display.closeModal(deleteTodoModal);
+
+    const todoItemModal = document.querySelector("#modal-todo-item");
+    if (todoItemModal.open) {
+        Display.closeModal(todoItemModal);
+    }
+
+    Display.clearSpaceList();
+    if (spaceName === "Completed") {
+        Display.renderTodoCount(Logic.getCompletedTodoCount());
+        Display.renderCompletedList(Logic.getCompletedTodoList());
+    }
+    else {
+        Display.renderTodoCount(Logic.getPendingTodoCount(spaceName));
         Display.renderSpaceList(Logic.getPendingTodoList(spaceName));
     }
 }
