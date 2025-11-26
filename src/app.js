@@ -366,9 +366,13 @@ function handleTodoSaveChanges(event) {
     Logic.updateTodo(spaceName, todoID, todoDataObj);
     Display.closeModal(todoItemModal);
     
-    const todoListArr = Logic.getTodoObjFromID(spaceName);
     Display.clearSpaceList();
-    Display.renderSpaceList(todoListArr);
+    if (spaceName === "Completed") {
+        Display.renderSpaceList(Logic.getCompletedTodoList());
+    }
+    else {
+        Display.renderSpaceList(Logic.getPendingTodoList(spaceName));
+    }
 }
 
 function handleOpenAddTodoModal() {
@@ -418,8 +422,7 @@ function handleSubmitAddTodo(event) {
     
     Display.closeModal(addTodoModal);
     
-    const todoListArr = Logic.getTodoObjFromID(spaceName);
     Display.clearSpaceList();
-    Display.renderSpaceList(todoListArr);
+    Display.renderSpaceList(Logic.getPendingTodoList(spaceName));
     Display.renderTodoCount(todoListArr.length);
 }

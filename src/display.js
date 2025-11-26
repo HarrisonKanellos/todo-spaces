@@ -21,7 +21,7 @@ function clearSpaceList() {
 }
 
 function removeTodoFromSpaceList(todoContainer) {
-    const spaceContainer = document.querySelector("space-contaner");
+    const spaceContainer = document.querySelector(".space-container");
     spaceContainer.removeChild(todoContainer);
 }
 
