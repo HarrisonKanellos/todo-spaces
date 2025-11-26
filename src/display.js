@@ -13,7 +13,7 @@ function clearUserMadeSpaces() {
 
 function clearSpaceList() {
     const space = document.querySelector(".space-container");
-    const children = space.children;
+    const children = space.querySelectorAll(".space-list-item");
 
     for (let i = 0, len = children.length; i < len; i++) {
         space.removeChild(children[i]);
