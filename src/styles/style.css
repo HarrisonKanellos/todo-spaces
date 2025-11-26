@@ -365,7 +365,8 @@ dialog[open] {
 
 .modal-add-space,
 #modal-delete-space,
-#modal-edit-space {
+#modal-edit-space,
+#modal-delete-todo {
     top: 40vh;
 }
 
@@ -384,7 +385,7 @@ dialog[open] {
 }
 
 .form-input-container {
-    display: flex;;
+    display: flex;
     flex-direction: column;
     gap: 10px;
 }
