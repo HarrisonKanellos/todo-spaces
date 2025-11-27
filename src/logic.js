@@ -160,7 +160,6 @@ function deleteTodo(spaceName, todoID) {
         .map((space) => {
             if (space.name === spaceName) {
                 space.todoList = newSpaceTodoList;
-                return space;
             }
             return space;
         })

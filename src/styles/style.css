@@ -262,6 +262,7 @@ header {
     transform: scale(1);
 }
 
+.list-item-checkbox:hover,
 .list-item-checkbox:checked:hover {
     border: 0.20em solid rgb(153, 153, 153);
 }
