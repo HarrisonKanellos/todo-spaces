@@ -60,14 +60,15 @@ function handleSubmitAddSpace(event) {
 
     const addSpaceModal = document.querySelector(".modal-add-space");
     const spaceNameInput = document.querySelector("#new-space-name");
-
     const spaceName = spaceNameInput.value;
+
     if (!Logic.addNewSpace(spaceName)) {
         // Runs if name already exists
         // TODO: provide UI message to user
         return;
     }
 
+    spaceNameInput.value = "";
     addSpaceModal.removeEventListener("click", handleAddSpaceModalClick);
     Display.closeModal(addSpaceModal);
 
@@ -466,16 +467,20 @@ function handleSubmitAddTodo(event) {
     const dueDate = document.querySelector("#due-date-input").value;
     const priority = document.querySelector("#priority-input").value;
     const status = document.querySelector("#status-input").value;
-    
+
     const spaceName = document.querySelector(".space-heading").textContent;
     const todoDataObj = { title, description, dueDate, priority, status };
     Logic.addNewTodo(spaceName, todoDataObj);
     
+    addTodoModal.querySelector("#title-input").value = "";
+    addTodoModal.querySelector("#description-input").value = "";
+    addTodoModal.querySelector("#due-date-input").value = "";
+    addTodoModal.querySelector("#priority-input").value = "medium";
+    addTodoModal.querySelector("#status-input").value = "pending";
     Display.closeModal(addTodoModal);
     
     const todoListArr = Logic.getTodoList(spaceName);
     Display.clearSpaceList();
     Display.renderSpaceList(todoListArr);
-    // TODO: fix NaN outputs when rendering todo count
     Display.renderTodoCount(todoListArr.length);
 }
