@@ -103,7 +103,7 @@ function getCompletedTodoList() {
 
     spaces.forEach((space) => {
         space.todoList.forEach((todoItem) => {
-            if (todoItem.status === "complete") {
+            if (todoItem.status === true) {
                 completedTodoArr.push(todoItem);
             }
         });
@@ -187,25 +187,28 @@ function updateTodo(spaceName, todoID, todoDataObj) {
     saveSpacesArray(spacesArr);
 }
 
-function toggleTodoStatus(spaceName, todoID) {
+function toggleTodoStatus(todoID) {
     const spacesArr = retrieveSpacesArray();
-    const todoRef = getTodoRef(spacesArr, spaceName, todoID);
+    const todoRef = getTodoRef(spacesArr, todoID);
 
-    if (todoRef.status === "pending") {
-        todoRef.status = "complete";
+    if (todoRef.status === false) {
+        todoRef.status = true;
     }
     else {
-        todoRef.status = "pending";
+        todoRef.status = false;
     }
 
     saveSpacesArray(spacesArr);
     return todoRef.status;
 }
 
-function getTodoRef(spacesArr, spaceName, todoID) {
+function getTodoRef(spacesArr, todoID) {
     return spacesArr
-        .find((space) => space.name === spaceName)
-        .todoList.find((todoItem) => todoItem.id === todoID);
+        .forEach((space) => {
+            space.todoList.find((todoItem) => {
+                todoItem.id === todoID;
+            });
+        });
 }
 
 function updateTodoProps(todoRef, todoDataObj) {

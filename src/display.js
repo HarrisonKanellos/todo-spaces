@@ -120,7 +120,7 @@ function createTodoItem(todoObj) {
     const checkboxStatus = document.createElement("input");
     checkboxStatus.classList.add("list-item-checkbox");
     checkboxStatus.type = "checkbox";
-    checkboxStatus.value = todoObj.status;
+    checkboxStatus.checked = todoObj.status;
 
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("list-item-delete");

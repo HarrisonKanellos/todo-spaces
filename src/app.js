@@ -286,8 +286,7 @@ function handleStatusToggle(event) {
     const todoID = todoContainer.dataset.id;
     const spaceName = document.querySelector(".space-heading").textContent;
     
-    Logic.toggleTodoStatus(spaceName, todoID);
-    Display.removeTodoFromSpaceList(todoContainer);
+    Logic.toggleTodoStatus(todoID);
 }
 
 function handleDeleteFromSpaceList(event) {
@@ -366,7 +365,7 @@ function handleTodoSaveChanges(event) {
     const description = document.querySelector("#todo-description").value;
     const dueDate = document.querySelector("#todo-due-date").value;
     const priority = document.querySelector("#todo-priority").value;
-    const status = document.querySelector("#todo-status").value;
+    const status = document.querySelector("#todo-status").checked;
     
     const spaceName = document.querySelector(".space-heading").textContent;
     const todoID = todoItemModal.dataset.id;
@@ -466,7 +465,7 @@ function handleSubmitAddTodo(event) {
     const description = document.querySelector("#description-input").value;
     const dueDate = document.querySelector("#due-date-input").value;
     const priority = document.querySelector("#priority-input").value;
-    const status = document.querySelector("#status-input").value;
+    const status = document.querySelector("#status-input").checked;
 
     const spaceName = document.querySelector(".space-heading").textContent;
     const todoDataObj = { title, description, dueDate, priority, status };
@@ -476,7 +475,7 @@ function handleSubmitAddTodo(event) {
     addTodoModal.querySelector("#description-input").value = "";
     addTodoModal.querySelector("#due-date-input").value = "";
     addTodoModal.querySelector("#priority-input").value = "medium";
-    addTodoModal.querySelector("#status-input").value = "pending";
+    addTodoModal.querySelector("#status-input").checked = false;
     Display.closeModal(addTodoModal);
     
     const todoListArr = Logic.getTodoList(spaceName);
