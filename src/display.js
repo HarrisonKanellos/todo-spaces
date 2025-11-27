@@ -20,11 +20,6 @@ function clearSpaceList() {
     }
 }
 
-function removeTodoFromSpaceList(todoContainer) {
-    const spaceContainer = document.querySelector(".space-container");
-    spaceContainer.removeChild(todoContainer);
-}
-
 function renderTodoCount(todoCount) {
     const counterElem = document.querySelector(".todo-count");
     if (todoCount === 1) {
@@ -215,16 +210,19 @@ function populateTodoItemModal(todoID, todoObj) {
     todoItemModal.dataset.id = todoID;
     title.value = todoObj.title;
     description.value = todoObj.description;
-    // TODO: format dueDate use date-fns
     dueDate.value = todoObj.dueDate; 
     priority.value = todoObj.priority;
-    status.value = todoObj.status;
+    if (todoObj.status === false) {
+        status.value = "pending";
+    }
+    else {
+        status.value = "complete";
+    }
 }
 
 export {
     clearUserMadeSpaces,
     clearSpaceList,
-    removeTodoFromSpaceList,
     renderTodoCount,
     renderSpaceTabs,
     renderSpaceList,

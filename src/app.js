@@ -287,6 +287,12 @@ function handleStatusToggle(event) {
     const spaceName = document.querySelector(".space-heading").textContent;
     
     Logic.toggleTodoStatus(todoID);
+
+    if (spaceName === "Completed") {
+        Display.clearSpaceList();
+        Display.renderCompletedList(Logic.getCompletedTodoList());
+        Display.renderTodoCount(Logic.getCompletedTodoCount());
+    }
 }
 
 function handleDeleteFromSpaceList(event) {
@@ -301,7 +307,7 @@ function handleDeleteFromSpaceList(event) {
 function handleTodoItemClick(todoItem) {
     const spaceName = document.querySelector(".space-heading").textContent;
     const todoID = todoItem.dataset.id;
-    const todoObj = Logic.getTodoObjFromID(spaceName, todoID);
+    const todoObj = Logic.getTodoObjFromID(todoID);
     Display.populateTodoItemModal(todoID, todoObj);
     
     const todoItemModal = document.querySelector("#modal-todo-item");
@@ -365,18 +371,27 @@ function handleTodoSaveChanges(event) {
     const description = document.querySelector("#todo-description").value;
     const dueDate = document.querySelector("#todo-due-date").value;
     const priority = document.querySelector("#todo-priority").value;
-    const status = document.querySelector("#todo-status").checked;
+    const statusValue = document.querySelector("#todo-status").value;
+
+    let status;
+    if (statusValue === "pending") {
+        status = false;
+    }
+    else {
+        status = true;
+    }
     
     const spaceName = document.querySelector(".space-heading").textContent;
     const todoID = todoItemModal.dataset.id;
     const todoDataObj = { title, description, dueDate, priority, status };
     
-    Logic.updateTodo(spaceName, todoID, todoDataObj);
+    Logic.updateTodo(todoID, todoDataObj);
     Display.closeModal(todoItemModal);
     
     Display.clearSpaceList();
     if (spaceName === "Completed") {
         Display.renderSpaceList(Logic.getCompletedTodoList());
+        Display.renderTodoCount(Logic.getCompletedTodoCount());
     }
     else {
         Display.renderSpaceList(Logic.getTodoList(spaceName));
@@ -465,7 +480,15 @@ function handleSubmitAddTodo(event) {
     const description = document.querySelector("#description-input").value;
     const dueDate = document.querySelector("#due-date-input").value;
     const priority = document.querySelector("#priority-input").value;
-    const status = document.querySelector("#status-input").checked;
+    const statusValue = document.querySelector("#status-input").value;
+
+    let status;
+    if (statusValue === "pending") {
+        status = false;
+    }
+    else {
+        status = true;
+    }
 
     const spaceName = document.querySelector(".space-heading").textContent;
     const todoDataObj = { title, description, dueDate, priority, status };

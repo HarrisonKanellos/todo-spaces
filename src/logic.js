@@ -81,12 +81,10 @@ function saveSpace(space) {
     localStorage.setItem("spaces", jsonSpaces)
 }
 
-function getTodoObjFromID(spaceName, id) {
+function getTodoObjFromID(todoID) {
     const spaces = retrieveSpacesArray();
 
-    return spaces
-        .find((space) => space.name === spaceName)
-        .todoList.find((todoObj) => todoObj.id === id);
+    return getTodoRef(spaces, todoID);
 }
 
 function getTodoList(spaceName) {
@@ -138,7 +136,7 @@ function getCompletedTodoCount() {
     let todoCount = 0;
     spaces.forEach((space) => {
         space.todoList.forEach((todoItem) => {
-            if (todoItem.status === "complete") {
+            if (todoItem.status === true) {
                 todoCount++;
             }
         });
@@ -179,9 +177,9 @@ function deleteSpace(spaceName) {
     saveSpacesArray(newSpacesArr);
 }
 
-function updateTodo(spaceName, todoID, todoDataObj) {
+function updateTodo(todoID, todoDataObj) {
     const spacesArr = retrieveSpacesArray();
-    const todoRef = getTodoRef(spacesArr, spaceName, todoID);
+    const todoRef = getTodoRef(spacesArr, todoID);
     updateTodoProps(todoRef, todoDataObj);
 
     saveSpacesArray(spacesArr);
@@ -203,12 +201,16 @@ function toggleTodoStatus(todoID) {
 }
 
 function getTodoRef(spacesArr, todoID) {
-    return spacesArr
-        .forEach((space) => {
-            space.todoList.find((todoItem) => {
-                todoItem.id === todoID;
+    let todoRef;
+    for (let space of spacesArr) {
+        todoRef = space.todoList
+            .find((todoItem) => {
+                return todoItem.id === todoID;
             });
-        });
+        if (todoRef) {
+            return todoRef;
+        }
+    }
 }
 
 function updateTodoProps(todoRef, todoDataObj) {
