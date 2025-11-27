@@ -225,6 +225,51 @@ header {
     overflow: hidden;
 }
 
+.list-item-checkbox,
+.list-item-checkbox:focus {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.20em;
+    height: 1.20em;
+    border: 0.20em solid currentColor;
+    border-radius: 50px;
+    transform: translateY(-0.075em);
+
+    display: grid;
+    place-content: center;
+}
+
+.list-item-checkbox::before {
+    content: "";
+    width: 0.70em;
+    height: 0.70em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em #38b000;
+    transform-origin: bottom left;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.list-item-checkbox:checked,
+.list-item-checkbox:checked:focus {
+    border: 0.20em solid #38b000;
+}
+
+.list-item-checkbox:checked::before {
+    transform: scale(1);
+}
+
+.list-item-checkbox:checked:hover {
+    border: 0.20em solid rgb(153, 153, 153);
+}
+
+.list-item-checkbox:checked:hover::before {
+    box-shadow: inset 1em 1em rgb(153, 153, 153);
+}
+
 .list-item-delete {
     display: none;
     padding: 5px;
