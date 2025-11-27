@@ -337,7 +337,7 @@ function handleTodoItemModalClick(event) {
         return;
     }
 
-    const isSaveButton = event.target.matches("#save-changes");
+    const isSaveButton = event.target.matches("#save-todo-changes");
     if (isSaveButton) {
         handleTodoSaveChanges(event);
     }
