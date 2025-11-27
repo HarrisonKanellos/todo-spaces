@@ -19,9 +19,9 @@ function initEventListeners() {
 function initDisplay() {
     Display.renderSpaceTabs(Logic.getUserMadeSpaceNames());
     Display.clearSpaceList();
-    Display.renderSpaceList(Logic.getPendingTodoList("Common"));
+    Display.renderSpaceList(Logic.getTodoList("Common"));
     Display.updateSpaceHeading("Common");
-    Display.renderTodoCount(Logic.getPendingTodoCount("Common"));
+    Display.renderTodoCount(Logic.getTodoCount("Common"));
 }
 
 function handleOpenAddSpaceModal() {
@@ -76,9 +76,9 @@ function handleSubmitAddSpace(event) {
     Display.selectActiveTabByName(spaceName);
 
     Display.updateSpaceHeading(spaceName);
-    Display.renderTodoCount(Logic.getPendingTodoCount(spaceName));
+    Display.renderTodoCount(Logic.getTodoCount(spaceName));
     Display.clearSpaceList();
-    Display.renderSpaceList(Logic.getPendingTodoList(spaceName));
+    Display.renderSpaceList(Logic.getTodoList(spaceName));
 }
 
 function handleNavClick(event) {
@@ -135,8 +135,8 @@ function handleSpaceTabClick(event) {
     }
     else {
         Display.updateSpaceHeading(spaceName);
-        Display.renderTodoCount(Logic.getPendingTodoCount(spaceName));
-        Display.renderSpaceList(Logic.getPendingTodoList(spaceName));
+        Display.renderTodoCount(Logic.getTodoCount(spaceName));
+        Display.renderSpaceList(Logic.getTodoList(spaceName));
     }
 }
 
@@ -192,8 +192,8 @@ function handleConfirmDeleteSpace() {
         Display.renderSpaceList(Logic.getCompletedTodoList());
     }
     else {
-        Display.renderTodoCount(Logic.getPendingTodoCount(activeTabName));
-        Display.renderSpaceList(Logic.getPendingTodoList(activeTabName));
+        Display.renderTodoCount(Logic.getTodoCount(activeTabName));
+        Display.renderSpaceList(Logic.getTodoList(activeTabName));
     }
 }
 
@@ -379,7 +379,7 @@ function handleTodoSaveChanges(event) {
         Display.renderSpaceList(Logic.getCompletedTodoList());
     }
     else {
-        Display.renderSpaceList(Logic.getPendingTodoList(spaceName));
+        Display.renderSpaceList(Logic.getTodoList(spaceName));
     }
 }
 
@@ -427,8 +427,8 @@ function handleConfirmDeleteTodo(event) {
         Display.renderCompletedList(Logic.getCompletedTodoList());
     }
     else {
-        Display.renderTodoCount(Logic.getPendingTodoCount(spaceName));
-        Display.renderSpaceList(Logic.getPendingTodoList(spaceName));
+        Display.renderTodoCount(Logic.getTodoCount(spaceName));
+        Display.renderSpaceList(Logic.getTodoList(spaceName));
     }
 }
 
@@ -473,7 +473,7 @@ function handleSubmitAddTodo(event) {
     
     Display.closeModal(addTodoModal);
     
-    const todoListArr = Logic.getPendingTodoList(spaceName);
+    const todoListArr = Logic.getTodoList(spaceName);
     Display.clearSpaceList();
     Display.renderSpaceList(todoListArr);
     // TODO: fix NaN outputs when rendering todo count

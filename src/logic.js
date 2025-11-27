@@ -89,12 +89,12 @@ function getTodoObjFromID(spaceName, id) {
         .todoList.find((todoObj) => todoObj.id === id);
 }
 
-function getPendingTodoList(spaceName) {
+function getTodoList(spaceName) {
     const spaces = retrieveSpacesArray();
 
     return spaces
         .find((space) => space.name === spaceName)
-        .todoList.filter((todoItem) => todoItem.status === "pending");
+        .todoList;
 }
 
 function getCompletedTodoList() {
@@ -124,22 +124,18 @@ function getUserMadeSpaceNames() {
     return spaceNames;
 }
 
-function getPendingTodoCount(spaceName) {
+function getTodoCount(spaceName) {
     const spaces = retrieveSpacesArray();
     
     return spaces
         .find((space) => space.name === spaceName)
-        .todoList.reduce((todoCount, todoItem) => {
-            if (todoItem.status === "pending") {
-                return todoCount++;
-            }
-        }, 0);
+        .todoList.length;
 }
 
 function getCompletedTodoCount() {
     const spaces = retrieveSpacesArray();
-    let todoCount = 0;
 
+    let todoCount = 0;
     spaces.forEach((space) => {
         space.todoList.forEach((todoItem) => {
             if (todoItem.status === "complete") {
@@ -250,10 +246,10 @@ export {
     addNewTodo, 
     addNewSpace,
     getTodoObjFromID,
-    getPendingTodoList, 
+    getTodoList, 
     getCompletedTodoList,
     getUserMadeSpaceNames,
-    getPendingTodoCount,
+    getTodoCount,
     getCompletedTodoCount, 
     deleteTodo, 
     deleteSpace, 
