@@ -426,7 +426,7 @@ function handleConfirmDeleteTodo(event) {
     const spaceName = document.querySelector(".space-heading").textContent;
     const todoID = deleteTodoModal.dataset.id;
 
-    Logic.deleteTodo(spaceName, todoID);
+    Logic.deleteTodo(todoID);
 
     deleteTodoModal.removeEventListener("click", handleDeleteTodoModalClick);
     Display.closeModal(deleteTodoModal);

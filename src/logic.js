@@ -144,27 +144,25 @@ function getCompletedTodoCount() {
     return todoCount;
 }
 
-function deleteTodo(spaceName, todoID) {
+function deleteTodo(todoID) {
     const spacesArr = retrieveSpacesArray();
+    
+    const spaceIndex = spacesArr.findIndex((space) => {
+        for (let todo of space.todoList) {
+            if (todo.id === todoID) {
+                return true;
+            }
+        }
+        return false;
+    })
 
     const newSpaceTodoList = spacesArr
-        .find((space) => space.name === spaceName)
-        .todoList.filter((todoItem) => {
-            if (todoItem.id === todoID) {
-                return false;
-            }
-            return true;
-        });
+        .at(spaceIndex).todoList
+        .filter((todo) => todo.id !== todoID);
 
-    const newSpacesArr = spacesArr
-        .map((space) => {
-            if (space.name === spaceName) {
-                space.todoList = newSpaceTodoList;
-            }
-            return space;
-        })
+    spacesArr.at(spaceIndex).todoList = newSpaceTodoList;
 
-    saveSpacesArray(newSpacesArr);
+    saveSpacesArray(spacesArr);
 }
 
 function deleteSpace(spaceName) {
